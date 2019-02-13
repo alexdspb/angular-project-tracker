@@ -1,0 +1,9 @@
+<td [className]="'task-name'">{{task.Name}}</td>
+<td *ngFor="let day of dates">
+    <span *ngFor="let timesheet of timesheets">
+        <input type="text"
+               value="{{timesheet.Date.substr(0, 10) === day ? timesheet.LoggedTime : ''}}"
+               *ngIf="(timesheet.TicketId === task.Id) && (timesheet.Date.substr(0, 10) === day)"
+        >
+    </span>
+</td>

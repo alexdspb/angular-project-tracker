@@ -1,0 +1,10 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Timesheets</th>
+            <td scope="col" *ngFor="let day of dates">{{day|date:'dd.MM.y'}}</td>
+        </tr>
+    </thead>
+    <tbody app-timesheet-project *ngFor="let project of projects" [project]="project" [dates]="dates"></tbody>
+</table>
+
