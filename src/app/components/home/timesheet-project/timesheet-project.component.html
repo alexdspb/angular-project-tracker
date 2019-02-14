@@ -3,4 +3,9 @@
     <td *ngFor="let day of dates">&nbsp;</td>
     <td>&nbsp;</td>
 </tr>
-<tr app-timesheet-task class="task-row" *ngFor="let task of tasks" [task]="task" [dates]="dates"></tr>
+<tr app-timesheet-task class="task-row" *ngFor="let task of tasks" [task]="task" [dates]="dates" [timesheets]="timesheets"></tr>
+<tr class="project-summary-row">
+    <th scope="row">Total</th>
+    <th *ngFor="let day of dates; let i=index" style="text-align: center">{{hoursByDates[i]}}</th>
+    <th>{{hoursTotal}}</th>
+</tr>

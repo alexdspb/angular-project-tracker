@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Project} from '../models/Project';
@@ -48,6 +48,17 @@ export class ApiService {
     // Get Timesheets by Task
     getTimesheetsByTaskId(id: number): Observable<Timesheet[]> {
         const url = `${this.apiUrl}/api/tasks/${id}/timesheets`;
+        return this.http.get<Timesheet[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Get Timesheets by Dates
+    getTimesheetsByDates(startDate, endDate): Observable<Timesheet[]> {
+        const url = `${this.apiUrl}/api/timesheets/search`;
+        const params = new HttpParams()
+            .set('startDate', startDate)
+            .set('endDate', endDate);
+        this.httpOptions = Object.assign(this.httpOptions, {params})
         return this.http.get<Timesheet[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
