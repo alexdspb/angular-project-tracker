@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Project} from '../models/Project';
 import {Task} from '../models/Task';
+import {Timesheet} from '../models/Timesheet';
 
 @Injectable({
     providedIn: 'root'
@@ -45,9 +46,9 @@ export class ApiService {
     }
 
     // Get Timesheets by Task
-    getTimesheetsByTaskId(id: number): Observable<object[]> {
+    getTimesheetsByTaskId(id: number): Observable<Timesheet[]> {
         const url = `${this.apiUrl}/api/tasks/${id}/timesheets`;
-        return this.http.get<object[]>(url, this.httpOptions)
+        return this.http.get<Timesheet[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 

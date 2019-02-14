@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import {Task} from '../../../models/Task';
+import {Timesheet} from '../../../models/Timesheet';
 
 @Component({
   selector: '[app-timesheet-task]',
@@ -10,7 +11,7 @@ import {Task} from '../../../models/Task';
 export class TimesheetTaskComponent implements OnInit {
   @Input() task: Task
   @Input() dates: Date[]
-  timesheets: object[] = []
+  timesheets: Timesheet[] = []
   taskHours: number[] = []
 
   constructor(private apiService: ApiService) { }
@@ -23,7 +24,7 @@ export class TimesheetTaskComponent implements OnInit {
       // prepare hours for displaying in template
       for (const dateItem of this.dates) {
         let hours = 0
-        for (let timesheet of this.timesheets) {
+        for (const timesheet of this.timesheets) {
           if (timesheet.Date.substr(0, 10) === dateItem) {
             hours = timesheet.LoggedTime
           }
