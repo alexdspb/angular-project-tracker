@@ -10,7 +10,7 @@ const numberOfDates = 7;
 })
 export class TimesheetTableComponent implements OnInit {
     private projects: object[] = [];
-    private dates: number[] = [];
+    private dates: string[] = [];
 
     constructor(private apiService: ApiService) {
     }
@@ -18,17 +18,18 @@ export class TimesheetTableComponent implements OnInit {
     ngOnInit() {
         this.apiService.getProjects().subscribe((data) => {
             this.projects = data.slice(0, 1);
+
+            // set date from
+            let fromDate = new Date('2019-02-08');
+            this.dates.push(fromDate.toISOString().substr(0, 10));
+            // add following dates
+            while (this.dates.length < numberOfDates) {
+                let nextDate = new Date([...this.dates].pop());
+                nextDate.setDate(nextDate.getDate() + 1);
+                this.dates = [...this.dates, nextDate.toISOString().substr(0, 10)];
+            }
         });
 
-        // set date from
-        let fromDate = new Date('2019-02-08');
-        this.dates.push(fromDate.toISOString().substr(0, 10));
-        // add following dates
-        while (this.dates.length < numberOfDates) {
-            let nextDate = new Date([...this.dates].pop());
-            nextDate.setDate(nextDate.getDate() + 1);
-            this.dates = [...this.dates, nextDate.toISOString().substr(0, 10)];
-        }
     }
 
 }

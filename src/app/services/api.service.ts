@@ -41,7 +41,7 @@ export class ApiService {
     getTimesheetsByTaskId(id: number): Observable<object[]> {
         return this.http.get<object[]>(`${this.apiUrl}/api/tasks/${id}/timesheets`, this.httpOptions)
             .pipe(
-                tap(response => console.log(response))
+                tap(response => (response))
             )
     }
 

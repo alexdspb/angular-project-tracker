@@ -14,7 +14,9 @@ export class TimesheetProjectComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getTasksByProjectId(this.project.Id).subscribe((data) => {this.tasks = data});
+    this.apiService.getTasksByProjectId(this.project.Id).subscribe((data) => {
+      this.tasks = data
+    });
   }
 
 }
