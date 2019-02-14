@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import {Project} from '../../../models/Project';
 
 @Component({
   selector: '[app-timesheet-project]',
@@ -7,7 +8,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./timesheet-project.component.less']
 })
 export class TimesheetProjectComponent implements OnInit {
-  @Input() project: object
+  @Input() project: Project
   @Input() dates: Date[]
   tasks: object[]
 

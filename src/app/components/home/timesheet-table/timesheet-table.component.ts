@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api.service';
+import {Project} from '../../../models/Project';
 
 const numberOfDates = 7;
 
@@ -9,7 +10,7 @@ const numberOfDates = 7;
     styleUrls: ['./timesheet-table.component.less']
 })
 export class TimesheetTableComponent implements OnInit {
-    private projects: object[] = [];
+    private projects: Project[] = [];
     private dates: string[] = [];
 
     constructor(private apiService: ApiService) {

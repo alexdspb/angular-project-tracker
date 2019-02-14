@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
+import {Project} from '../models/Project';
 
 @Injectable({
     providedIn: 'root'
@@ -13,9 +14,8 @@ export class ApiService {
 
     private httpOptions = {
         headers: new HttpHeaders({
-            'Accept':  'application/json',
-            'Content-Type':  'application/json',
-            'API_KEY': this.apiKey
+            Accept:  'application/json',
+            API_KEY: this.apiKey
         })
     };
 
@@ -30,9 +30,9 @@ export class ApiService {
     }
 
     // Get Projects
-    getProjects(): Observable<object[]> {
+    getProjects(): Observable<Project[]> {
         const url = `${this.apiUrl}/api/projects`;
-        return this.http.get<object[]>(url, this.httpOptions)
+        return this.http.get<Project[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
