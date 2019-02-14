@@ -24,27 +24,36 @@ export class ApiService {
 
     // Get Employees
     getEmployees(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/api/employees`, this.httpOptions)
+        const url = `${this.apiUrl}/api/employees`;
+        return this.http.get<any[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
     // Get Projects
     getProjects(): Observable<object[]> {
-        return this.http.get<object[]>(`${this.apiUrl}/api/projects`, this.httpOptions)
+        const url = `${this.apiUrl}/api/projects`;
+        return this.http.get<object[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
     // Get Tasks by Project
     getTasksByProjectId(id: number): Observable<object[]> {
-        return this.http.get<object[]>(`${this.apiUrl}/api/projects/${id}/tickets`, this.httpOptions)
+        const url = `${this.apiUrl}/api/projects/${id}/tickets`;
+        return this.http.get<object[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
     // Get Timesheets by Task
     getTimesheetsByTaskId(id: number): Observable<object[]> {
-        return this.http.get<object[]>(`${this.apiUrl}/api/tasks/${id}/timesheets`, this.httpOptions)
-            .pipe(
-                tap(response => (response))
-            )
+        const url = `${this.apiUrl}/api/tasks/${id}/timesheets`;
+        return this.http.get<object[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+
+    private logRequest(request, response) {
+        console.log(request, response);
+    }
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
