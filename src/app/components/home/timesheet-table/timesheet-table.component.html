@@ -2,8 +2,9 @@
     <thead>
         <tr>
             <th scope="col">Timesheets</th>
+            <th scope="col"><a href="{{prevLink}}"><fa-icon [icon]="faArrowLeft"></fa-icon></a></th>
             <td scope="col" *ngFor="let day of dates">{{day|date:'dd.MM.y'}}</td>
-            <th scope="col">&nbsp;</th>
+            <th scope="col"><a href="{{nextLink}}"><fa-icon [icon]="faArrowRight"></fa-icon></a></th>
         </tr>
     </thead>
     <tbody app-timesheet-project *ngFor="let project of projects" [dates]="dates" [timesheets]="timesheets" [project]="project"></tbody>
