@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Project} from '../models/Project';
+import {Task} from '../models/Task';
 
 @Injectable({
     providedIn: 'root'
@@ -37,9 +38,9 @@ export class ApiService {
     }
 
     // Get Tasks by Project
-    getTasksByProjectId(id: number): Observable<object[]> {
+    getTasksByProjectId(id: number): Observable<Task[]> {
         const url = `${this.apiUrl}/api/projects/${id}/tickets`;
-        return this.http.get<object[]>(url, this.httpOptions)
+        return this.http.get<Task[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 

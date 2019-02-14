@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import {Task} from '../../../models/Task';
 
 @Component({
   selector: '[app-timesheet-task]',
@@ -7,7 +8,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./timesheet-task.component.less'],
 })
 export class TimesheetTaskComponent implements OnInit {
-  @Input() task: object
+  @Input() task: Task
   @Input() dates: Date[]
   timesheets: object[] = []
   taskHours: number[] = []
