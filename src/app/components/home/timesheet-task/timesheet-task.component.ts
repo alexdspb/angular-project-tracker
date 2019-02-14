@@ -10,7 +10,7 @@ import {Timesheet} from '../../../models/Timesheet';
 })
 export class TimesheetTaskComponent implements OnInit {
   @Input() task: Task
-  @Input() dates: Date[]
+  @Input() dates: string[]
   timesheets: Timesheet[] = []
   taskHours: number[] = []
 
@@ -25,11 +25,11 @@ export class TimesheetTaskComponent implements OnInit {
       for (const dateItem of this.dates) {
         let hours = 0
         for (const timesheet of this.timesheets) {
-          if (timesheet.Date.substr(0, 10) === dateItem) {
-            hours = timesheet.LoggedTime
+          if (timesheet.Date.substr(0, 10) === dateItem.substr(0, 10)) {
+            hours = timesheet.LoggedTime;
           }
         }
-        this.taskHours.push(hours)
+        this.taskHours.push(hours);
       }
     });
   }

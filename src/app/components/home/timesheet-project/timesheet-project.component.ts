@@ -10,7 +10,7 @@ import {Task} from '../../../models/Task';
 })
 export class TimesheetProjectComponent implements OnInit {
   @Input() project: Project
-  @Input() dates: Date[]
+  @Input() dates: string[]
   tasks: Task[]
 
   constructor(private apiService: ApiService) { }
