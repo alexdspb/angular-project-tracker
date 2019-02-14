@@ -54,7 +54,7 @@ export class ApiService {
 
 
     private logRequest(request, response) {
-        console.log(request, response);
+        //console.log(request, response);
     }
 
     private handleError<T>(operation = 'operation', result?: T) {
