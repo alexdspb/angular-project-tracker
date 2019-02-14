@@ -13,6 +13,7 @@ export class TimesheetTaskComponent implements OnInit {
   @Input() dates: string[]
   timesheets: Timesheet[] = []
   taskHours: number[] = []
+  taskHoursAmount: number = 0; // keeps amount of hours for task row
 
   constructor(private apiService: ApiService) { }
 
@@ -20,6 +21,7 @@ export class TimesheetTaskComponent implements OnInit {
     // get timesheets from service
     this.apiService.getTimesheetsByTaskId(this.task.Id).subscribe((data) => {
       this.timesheets = data
+      this.taskHoursAmount = 0;
 
       // prepare hours for displaying in template
       for (const dateItem of this.dates) {
@@ -30,6 +32,7 @@ export class TimesheetTaskComponent implements OnInit {
           }
         }
         this.taskHours.push(hours);
+        this.taskHoursAmount += hours;
       }
     });
   }

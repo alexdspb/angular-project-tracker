@@ -1,5 +1,6 @@
 <tr class="project-row">
     <th scope="row" [className]="'project-name'">{{project.Name}}</th>
     <td *ngFor="let day of dates">&nbsp;</td>
+    <td>&nbsp;</td>
 </tr>
 <tr app-timesheet-task class="task-row" *ngFor="let task of tasks" [task]="task" [dates]="dates"></tr>

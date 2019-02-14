@@ -3,6 +3,7 @@
         <tr>
             <th scope="col">Timesheets</th>
             <td scope="col" *ngFor="let day of dates">{{day|date:'dd.MM.y'}}</td>
+            <th scope="col">&nbsp;</th>
         </tr>
     </thead>
     <tbody app-timesheet-project *ngFor="let project of projects" [project]="project" [dates]="dates"></tbody>
