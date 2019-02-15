@@ -1,5 +1,6 @@
 <td [className]="'task-name'" colspan="2">{{task.Name}}</td>
 <td *ngFor="let day of dates; let i=index" style="text-align: center">
     <input type="text" value="{{hoursByDates[i]}}">
+    <fa-icon [icon]="faPlus"></fa-icon>
 </td>
 <th scope="row">{{hoursTotal}}</th>

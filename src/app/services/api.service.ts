@@ -58,8 +58,8 @@ export class ApiService {
         const params = new HttpParams()
             .set('startDate', startDate)
             .set('endDate', endDate);
-        this.httpOptions = Object.assign(this.httpOptions, {params})
-        return this.http.get<Timesheet[]>(url, this.httpOptions)
+        const httpOptions = Object.assign({...this.httpOptions}, {params})
+        return this.http.get<Timesheet[]>(url, httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 

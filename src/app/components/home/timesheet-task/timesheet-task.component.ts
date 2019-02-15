@@ -3,6 +3,9 @@ import {ApiService} from '../../../services/api.service';
 import {Task} from '../../../models/Task';
 import {Timesheet} from '../../../models/Timesheet';
 
+// Font Awesome
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+
 @Component({
     selector: '[app-timesheet-task]',
     templateUrl: './timesheet-task.component.html',
@@ -15,6 +18,9 @@ export class TimesheetTaskComponent implements OnInit {
     hoursByDates: number[] = [];
     hoursTotal: number = 0; // keeps amount of hours for task row
 
+    // Font Awesome
+    faPlus = faPlus;
+
     constructor(private apiService: ApiService) {
     }
 
@@ -23,7 +29,7 @@ export class TimesheetTaskComponent implements OnInit {
         this.timesheets = this.timesheets.filter(item => item.TicketId === this.task.Id);
 
         // reset counter
-        this.taskHoursAmount = 0;
+        this.hoursTotal = 0;
 
         // aggregate hours by dates
         for (const dateItem of this.dates) {
