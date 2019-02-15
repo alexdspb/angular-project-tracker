@@ -63,6 +63,13 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Put Timesheet
+    putTimesheet(timesheet: Timesheet): Observable<Timesheet> {
+        const url = `${this.apiUrl}/api/timesheets`;
+        return this.http.put<Timesheet>(url, timesheet, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
 
     private logRequest(request, response) {
         //console.log(request, response);

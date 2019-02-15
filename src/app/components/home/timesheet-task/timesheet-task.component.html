@@ -14,16 +14,14 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
-                <div>
-                    <label for="edit-hours">Hours: &nbsp;</label>
-                    <input id="edit-hours" type="text" name="hours" [value]="timesheet.LoggedTime">
-                </div>
-                <div>
-                    <label for="edit-hours">Comment: &nbsp;</label>
-                    <input id="edit-comment" type="text" name="comment" [value]="timesheet.Comment">
-                </div>
-            </form>
+            <div>
+                <label for="edit-logged-time">Hours: &nbsp;</label>
+                <input id="edit-logged-time" type="number" [formControl]="modalControls.loggedTime">
+            </div>
+            <div>
+                <label for="edit-comment">Comment: &nbsp;</label>
+                <input id="edit-comment" type="text" [formControl]="modalControls.comment">
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Save</button>

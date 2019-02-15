@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {FormControl} from '@angular/forms';
 
 import {ApiService} from '../../../services/api.service';
 import {Task} from '../../../models/Task';
@@ -20,6 +21,13 @@ export class TimesheetTaskComponent implements OnInit {
     hoursByDates: number[] = []; // keeps amount of hours for each date
     hoursTotal: number = 0; // keeps amount of hours for task row
     timesheet: Timesheet; // Timesheet for edit in modal
+    // modal controls
+    modalControls = {
+        loggedTime: new FormControl(''),
+        comment: new FormControl(''),
+    };
+    timesheetLoggedTimeControl = new FormControl('');
+    timesheetCommentControl = new FormControl('');
 
     // Font Awesome
     faPlus = faPlus;
@@ -53,7 +61,7 @@ export class TimesheetTaskComponent implements OnInit {
         // create template for timesheet
         this.timesheet = {
             LoggedTime: 0,
-            Date: new Date().toISOString(),
+            Date: date,
             TicketId: task.Id,
             Comment: '',
             Id: 0,
@@ -65,16 +73,30 @@ export class TimesheetTaskComponent implements OnInit {
             }
         }
 
-        console.log(this.timesheet);
+        this.modalControls.loggedTime.setValue(this.timesheet.LoggedTime);
+        this.modalControls.comment.setValue(this.timesheet.Comment);
         // open modal
         this.modalService.open(modal, {ariaLabelledBy: 'timesheet-modal-title'}).result.then((result) => {
             console.log(result);
-            console.log(this.timesheet);
             // save on server
+            this.timesheet = {...this.timesheet,
+                LoggedTime: this.modalControls.loggedTime.value,
+                Comment: this.modalControls.comment.value};
+            console.log('updated: ', this.timesheet);
+            this.apiService.putTimesheet(this.timesheet).subscribe(data => data);
             // update in ui
+            for (const i in this.timesheets) {
+                if (this.timesheets[i].Id === this.timesheet.Id) {
+                    this.timesheets[i] = this.timesheet;
+                }
+            }
+            console.log('timesheets: ', this.timesheets);
+            // todo: actually update ui
+            // clear
             this.timesheet = undefined;
         }, (reason) => {
             console.log(reason);
+            // clear
             this.timesheet = undefined;
         });
     }
