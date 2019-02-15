@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import {ApiService} from '../../../services/api.service';
 import {Task} from '../../../models/Task';
 import {Timesheet} from '../../../models/Timesheet';
@@ -15,13 +17,14 @@ export class TimesheetTaskComponent implements OnInit {
     @Input() task: Task;
     @Input() dates: string[];
     @Input() timesheets: Timesheet[];
-    hoursByDates: number[] = [];
+    hoursByDates: number[] = []; // keeps amount of hours for each date
     hoursTotal: number = 0; // keeps amount of hours for task row
+    timesheet: Timesheet; // Timesheet for edit in modal
 
     // Font Awesome
     faPlus = faPlus;
 
-    constructor(private apiService: ApiService) {
+    constructor(private apiService: ApiService, private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -46,4 +49,33 @@ export class TimesheetTaskComponent implements OnInit {
         this.hoursTotal = this.hoursByDates.reduce((a, b) => a + b, 0);
     }
 
+    showTimesheetModal(task: Task, date: string, modal: object): void {
+        // create template for timesheet
+        this.timesheet = {
+            LoggedTime: 0,
+            Date: new Date().toISOString(),
+            TicketId: task.Id,
+            Comment: '',
+            Id: 0,
+        };
+        // or find in timesheets by task and date
+        for (const item of this.timesheets) {
+            if (item.TicketId === task.Id && item.Date.substr(0, 10) === date) {
+                this.timesheet = item;
+            }
+        }
+
+        console.log(this.timesheet);
+        // open modal
+        this.modalService.open(modal, {ariaLabelledBy: 'timesheet-modal-title'}).result.then((result) => {
+            console.log(result);
+            console.log(this.timesheet);
+            // save on server
+            // update in ui
+            this.timesheet = undefined;
+        }, (reason) => {
+            console.log(reason);
+            this.timesheet = undefined;
+        });
+    }
 }

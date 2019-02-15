@@ -1,6 +1,33 @@
 <td [className]="'task-name'" colspan="2">{{task.Name}}</td>
-<td *ngFor="let day of dates; let i=index" style="text-align: center">
+<td *ngFor="let date of dates; let i=index" style="text-align: center">
     <input type="text" value="{{hoursByDates[i]}}">
-    <fa-icon [icon]="faPlus"></fa-icon>
+    <fa-icon [icon]="faPlus" (click)="showTimesheetModal(task, date, timesheetModal)"></fa-icon>
 </td>
 <th scope="row">{{hoursTotal}}</th>
+
+<ng-template #timesheetModal let-modal>
+    <div id="timesheet-modal">
+        <div class="modal-header">
+            <h4 class="modal-title" id="timesheet-modal-title">Timesheet</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div>
+                    <label for="edit-hours">Hours: &nbsp;</label>
+                    <input id="edit-hours" type="text" name="hours" [value]="timesheet.LoggedTime">
+                </div>
+                <div>
+                    <label for="edit-hours">Comment: &nbsp;</label>
+                    <input id="edit-comment" type="text" name="comment" [value]="timesheet.Comment">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Save</button>
+            <button type="button" class="btn btn-default" (click)="modal.dismiss('cancel click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
