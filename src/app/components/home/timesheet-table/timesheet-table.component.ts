@@ -55,7 +55,7 @@ export class TimesheetTableComponent implements OnInit {
 
             // get projects
             this.apiService.getProjects().subscribe((data) => {
-                this.projects = data.slice(0, 2);
+                this.projects = data;
             });
         });
 
