@@ -1,6 +1,6 @@
 <td [className]="'task-name'" colspan="2">{{task.Name}}</td>
 <td *ngFor="let date of dates; let i=index" style="text-align: center">
-    <input type="text" value="{{hoursByDates[i]}}">
+    <input type="text" [formControl]="controls[i]">
     <fa-icon [icon]="faPlus" (click)="showTimesheetModal(task, date, timesheetModal)"></fa-icon>
 </td>
 <th scope="row">{{hoursTotal}}</th>
@@ -14,6 +14,7 @@
             </button>
         </div>
         <div class="modal-body">
+            <input type="hidden" [formControl]="modalControls.date">
             <div>
                 <label for="edit-logged-time">Hours: &nbsp;</label>
                 <input id="edit-logged-time" type="number" [formControl]="modalControls.loggedTime">

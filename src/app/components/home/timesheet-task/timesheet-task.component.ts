@@ -20,9 +20,11 @@ export class TimesheetTaskComponent implements OnInit {
     @Input() timesheets: Timesheet[];
     hoursByDates: number[] = []; // keeps amount of hours for each date
     hoursTotal: number = 0; // keeps amount of hours for task row
-    timesheet: Timesheet; // Timesheet for edit in modal
+    // controls
+    controls: FormControl[] = [];
     // modal controls
     modalControls = {
+        date: new FormControl(''),
         loggedTime: new FormControl(''),
         comment: new FormControl(''),
     };
@@ -51,6 +53,12 @@ export class TimesheetTaskComponent implements OnInit {
                 }
             }
             this.hoursByDates.push(hours);
+
+            // controls
+            this.controls.push(new FormControl({
+                value: hours,
+                disabled: true
+            }));
         }
 
         // aggregate hours total
@@ -59,7 +67,7 @@ export class TimesheetTaskComponent implements OnInit {
 
     showTimesheetModal(task: Task, date: string, modal: object): void {
         // create template for timesheet
-        this.timesheet = {
+        let timesheet: Timesheet = {
             LoggedTime: 0,
             Date: date,
             TicketId: task.Id,
@@ -69,35 +77,37 @@ export class TimesheetTaskComponent implements OnInit {
         // or find in timesheets by task and date
         for (const item of this.timesheets) {
             if (item.TicketId === task.Id && item.Date.substr(0, 10) === date) {
-                this.timesheet = item;
+                timesheet = item;
             }
         }
 
-        this.modalControls.loggedTime.setValue(this.timesheet.LoggedTime);
-        this.modalControls.comment.setValue(this.timesheet.Comment);
+        // set values from task to controls
+        this.modalControls.date.setValue(timesheet.Date);
+        this.modalControls.loggedTime.setValue(timesheet.LoggedTime);
+        this.modalControls.comment.setValue(timesheet.Comment);
         // open modal
         this.modalService.open(modal, {ariaLabelledBy: 'timesheet-modal-title'}).result.then((result) => {
+            // on modal save
             console.log(result);
             // save on server
-            this.timesheet = {...this.timesheet,
+            timesheet = {...timesheet,
                 LoggedTime: this.modalControls.loggedTime.value,
                 Comment: this.modalControls.comment.value};
-            console.log('updated: ', this.timesheet);
-            this.apiService.putTimesheet(this.timesheet).subscribe(data => data);
+            this.apiService.putTimesheet(timesheet).subscribe(data => data);
             // update in ui
+            const dateIndex = this.dates.indexOf(this.modalControls.date.value.substr(0, 10));
+            if (dateIndex !== -1 && this.controls[dateIndex]) {
+                this.controls[dateIndex].setValue(this.modalControls.loggedTime.value);
+            }
+            // also update this.timesheets for data consistency
             for (const i in this.timesheets) {
-                if (this.timesheets[i].Id === this.timesheet.Id) {
-                    this.timesheets[i] = this.timesheet;
+                if (this.timesheets[i].Id === timesheet.Id) {
+                    this.timesheets[i] = timesheet;
                 }
             }
-            console.log('timesheets: ', this.timesheets);
-            // todo: actually update ui
-            // clear
-            this.timesheet = undefined;
         }, (reason) => {
+            // on modal dismiss
             console.log(reason);
-            // clear
-            this.timesheet = undefined;
         });
     }
 }
