@@ -28,8 +28,6 @@ export class TimesheetTaskComponent implements OnInit {
         loggedTime: new FormControl(''),
         comment: new FormControl(''),
     };
-    timesheetLoggedTimeControl = new FormControl('');
-    timesheetCommentControl = new FormControl('');
 
     // Font Awesome
     faPlus = faPlus;
@@ -57,7 +55,7 @@ export class TimesheetTaskComponent implements OnInit {
             // controls
             this.controls.push(new FormControl({
                 value: hours,
-                disabled: true
+                disabled: (hours > 0)
             }));
         }
 
@@ -67,8 +65,9 @@ export class TimesheetTaskComponent implements OnInit {
 
     showTimesheetModal(task: Task, date: string, modal: object): void {
         // create template for timesheet
+        const i = this.dates.indexOf(date);
         let timesheet: Timesheet = {
-            LoggedTime: 0,
+            LoggedTime: (i === -1) ? 0 : this.controls[i].value,
             Date: date,
             TicketId: task.Id,
             Comment: '',
