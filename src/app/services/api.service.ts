@@ -21,6 +21,16 @@ export class ApiService {
         })
     };
 
+    taskStatuses = [
+        '',
+        'Open',
+        'Development',
+        'Ready for QA',
+        'Test',
+        'Closed'
+    ];
+    activeTaskStatuses = [1, 2, 3, 4];
+
     constructor(private http: HttpClient) {
     }
 

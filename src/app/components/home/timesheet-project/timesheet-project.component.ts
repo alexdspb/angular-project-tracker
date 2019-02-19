@@ -21,7 +21,8 @@ export class TimesheetProjectComponent implements OnInit {
 
   ngOnInit() {
     this.apiService.getTasksByProjectId(this.project.Id).subscribe((data) => {
-      this.tasks = data;
+      // take only active tasks
+      this.tasks = data.filter(item => this.apiService.activeTaskStatuses.indexOf(item.StatusId) !== -1);
 
       // get only tasksheets from current project's tasks
       const tasksIds = this.tasks.map(item => item.Id);
