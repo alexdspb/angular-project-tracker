@@ -22,14 +22,12 @@ export class ApiService {
     };
 
     taskStatuses = [
-        '',
-        'Open',
-        'Development',
-        'Ready for QA',
-        'Test',
-        'Closed'
+        {id: 1, name: 'Open', isActive: true},
+        {id: 2, name: 'Development', isActive: true},
+        {id: 3, name: 'Ready for QA', isActive: true},
+        {id: 4, name: 'Test', isActive: true},
+        {id: 5, name: 'Closed', isActive: false}
     ];
-    activeTaskStatuses = [1, 2, 3, 4];
 
     constructor(private http: HttpClient) {
     }
@@ -38,6 +36,13 @@ export class ApiService {
     getEmployees(): Observable<any[]> {
         const url = `${this.apiUrl}/api/employees`;
         return this.http.get<any[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Get Project by id
+    getProjectById(id: number): Observable<Project> {
+        const url = `${this.apiUrl}/api/projects/${id}`;
+        return this.http.get<Project>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 

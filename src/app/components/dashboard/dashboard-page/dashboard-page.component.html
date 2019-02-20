@@ -1,3 +1,23 @@
 <p>
-  dashboard-page works!
+  <span *ngFor="let item of projects; let i=index">
+    <a href="/dashboard?projectId={{item.Id}}" *ngIf="item.Id !== project.Id">{{item.Name}}</a>
+    <span *ngIf="item.Id === project.Id">{{item.Name}}</span>
+    <span *ngIf="i < projects.length - 1">&nbsp;|&nbsp;</span>
+  </span>
 </p>
+
+<h1>{{project.Name}}</h1>
+<p style="text-align: center">{{tasks.length}} tasks</p>
+<div class="statuses-list">
+  <div *ngFor="let status of apiService.taskStatuses" class="status-item">
+    <h3>{{status.name}}</h3>
+    <div class="tasks-list">
+      <div *ngFor="let task of tasks">
+        <div *ngIf="task.StatusId === status.id" class="task-item">
+          <div class="task-name">{{task.Name}}</div>
+          <div class="task-description">{{task.Description}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
