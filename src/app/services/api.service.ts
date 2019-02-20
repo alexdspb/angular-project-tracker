@@ -29,6 +29,14 @@ export class ApiService {
         {id: 5, name: 'Closed', isActive: false}
     ];
 
+    taskTypes = [
+        {id: 1, name: 'Technical task'},
+        {id: 2, name: 'Bug'},
+        {id: 3, name: 'Improvement'},
+        {id: 4, name: 'New Feature'},
+        {id: 5, name: 'Task'},
+    ];
+
     constructor(private http: HttpClient) {
     }
 

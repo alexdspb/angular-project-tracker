@@ -9,7 +9,7 @@
 <div class="project-header">
     <h1>{{project?.Name}}</h1>
     <p style="text-align: center">{{tasks.length}} tasks</p>
-    <div id="project-actions"><button type="button" class="btn btn-primary">New task</button></div>
+    <div id="project-actions"><button type="button" class="btn btn-primary" (click)="showTaskModal(taskModal)">New task</button></div>
 </div>
 <div class="statuses-list" cdkDropListGroup>
     <div cdkDropList
@@ -25,6 +25,7 @@
                  *ngFor="let task of tasksByStatuses[status.id]"
                  [cdkDragData]="task"
                  class="task-item"
+                 (dblclick)="showTaskModal(taskModal, task)"
             >
                 <div class="task-name">{{task.Name}}</div>
                 <div class="task-description">{{task.Description}}</div>
@@ -32,3 +33,44 @@
         </div>
     </div>
 </div>
+
+<ng-template #taskModal let-modal>
+    <div id="task-modal">
+        <div class="modal-header">
+            <h4 class="modal-title" id="task-modal-title">Task</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <label for="edit-name">Name: &nbsp;</label>
+                <input id="edit-name" type="text" [formControl]="modalControls.name">
+            </div>
+            <div>
+                <label for="edit-description">Description: &nbsp;</label>
+                <input id="edit-description" type="text" [formControl]="modalControls.description">
+            </div>
+            <div>
+                <label for="edit-estimate">Estimate: &nbsp;</label>
+                <input id="edit-estimate" type="number" [formControl]="modalControls.estimate">
+            </div>
+            <div>
+                <label for="edit-start-date">Start date: &nbsp;</label>
+                <input id="edit-start-date" type="date" [formControl]="modalControls.startDate">
+            </div>
+            <div>
+                <label for="edit-end-date">End date: &nbsp;</label>
+                <input id="edit-end-date" type="date" [formControl]="modalControls.endDate">
+            </div>
+            <div>
+                <label for="edit-type">Type: &nbsp;</label>
+                <input id="edit-type" type="text" [formControl]="modalControls.type">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Save</button>
+            <button type="button" class="btn btn-default" (click)="modal.dismiss('cancel click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
