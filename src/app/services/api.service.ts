@@ -60,6 +60,13 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Put Tasks
+    putTask(task: Task): Observable<Task> {
+        const url = `${this.apiUrl}/api/tasks`;
+        return this.http.put<Task>(url, task, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
     // Get Timesheets by Task
     getTimesheetsByTaskId(id: number): Observable<Timesheet[]> {
         const url = `${this.apiUrl}/api/tasks/${id}/timesheets`;
