@@ -73,9 +73,20 @@
             </form>
         </div>
         <div class="modal-footer">
+            <ng-template #popTitle>Delete this task?</ng-template>
+            <ng-template #popContent>
+                <button class="btn btn-success">No!</button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-danger" (click)="deleteTask(modalTask)">Delete.</button>
+            </ng-template>
+
             <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Save</button>
             <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-            <button type="button" class="btn btn-danger" (click)="modal.dismiss('cancel click')">
+            <button type="button"
+                    class="btn btn-danger delete-button"
+                    title="Delete this task!"
+                    placement="top" [ngbPopover]="popContent" [popoverTitle]="popTitle"
+                    [hidden]="!modalTask.Id"
+            >
                 <fa-icon [icon]="faTrashAlt"></fa-icon>
             </button>
         </div>

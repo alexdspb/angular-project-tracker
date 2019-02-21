@@ -9,7 +9,7 @@ import {Task} from '../../../models/Task';
 import {FormControl, FormGroup} from '@angular/forms';
 
 // Font Awesome
-import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-dashboard-page',
@@ -21,6 +21,7 @@ export class DashboardPageComponent implements OnInit {
     private project: Project;
     private tasks: Task[] = [];
     private tasksByStatuses: object = {};
+    private modalTask: Task;
     // modal form
     taskForm = new FormGroup({
         Name: new FormControl(''),
@@ -94,7 +95,7 @@ export class DashboardPageComponent implements OnInit {
 
     showTaskModal(modal: object, task: Task|null) {
         // create template for Task if task not passed
-        task = task ? task : {
+        this.modalTask = task ? task : {
             Id: 0,
             Name: '',
             Description: '',
@@ -111,29 +112,43 @@ export class DashboardPageComponent implements OnInit {
         const controls = (
             ({Name, Description, Estimate, StartDate, EndDate, TypeId}) =>
             ({Name, Description, Estimate, StartDate, EndDate, TypeId})
-        )(task);
+        )(this.modalTask);
         this.taskForm.setValue(controls);
+        this.taskForm.patchValue({
+            StartDate: this.modalTask.StartDate ? this.modalTask.StartDate.substr(0, 10) : this.modalTask.StartDate,
+            EndDate: this.modalTask.EndDate ? this.modalTask.EndDate.substr(0, 10) : this.modalTask.EndDate,
+        });
 
         // open modal
         this.modalService.open(modal, {ariaLabelledBy: 'timesheet-modal-title'}).result.then((result) => {
             // on modal save
             console.log(result);
-            task = Object.assign(task, this.taskForm.value);
-            if (task.Id === 0) {
+            task = Object.assign(this.modalTask, this.taskForm.value);
+            if (this.modalTask.Id === 0) {
                 // add to server
-                this.apiService.postTask(task).subscribe(addedTask => {
+                this.apiService.postTask(this.modalTask).subscribe(addedTask => {
                     // add to component
                     this.tasks.push(addedTask);
-                    this.tasksByStatuses[task.StatusId].push(addedTask);
+                    this.tasksByStatuses[this.modalTask.StatusId].push(addedTask);
                 });
             }
             else {
                 // edit on server
-                this.apiService.putTask(task).subscribe();
+                this.apiService.putTask(this.modalTask).subscribe();
             }
         }, (reason) => {
             // on modal dismiss
             console.log(reason);
+        });
+    }
+
+    deleteTask(task: Task) {
+        this.modalService.dismissAll();
+        this.apiService.deleteTask(task).subscribe(response => {
+            if (response === task.Id) {
+                this.tasks = this.tasks.filter(item => item.Id !== task.Id);
+                this.tasksByStatuses[task.StatusId] = this.tasksByStatuses[task.StatusId].filter(item => item.Id !== task.Id);
+            }
         });
     }
 }

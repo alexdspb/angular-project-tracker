@@ -75,11 +75,18 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
     }
 
-    // Put Tasks
+    // Put Task
     putTask(task: Task): Observable<Task> {
         const url = `${this.apiUrl}/api/tasks`;
         return this.http.put<Task>(url, task, this.httpOptions)
             .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
+    // Delete Task
+    deleteTask(task: Task): Observable<number> {
+        const url = `${this.apiUrl}/api/tasks/${task.Id}`;
+        return this.http.delete<number>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
 
     // Get Timesheets by Task
