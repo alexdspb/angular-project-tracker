@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Project} from '../models/Project';
 import {Task} from '../models/Task';
 import {Timesheet} from '../models/Timesheet';
+import {Employee} from '../models/Employee';
 
 @Injectable({
     providedIn: 'root'
@@ -112,6 +113,14 @@ export class ApiService {
         const url = `${this.apiUrl}/api/timesheets`;
         return this.http.put<Timesheet>(url, timesheet, this.httpOptions)
             .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
+
+    userLogin(login: string, password: string): Observable<Employee> {
+        const url = `${this.apiUrl}/api/employees/login`;
+        const body = {Login: login, Password: password};
+        return this.http.post<Employee>(url, body, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
     }
 
 
