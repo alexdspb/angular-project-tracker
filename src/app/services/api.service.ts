@@ -68,6 +68,13 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Post Task
+    postTask(task: Task): Observable<Task> {
+        const url = `${this.apiUrl}/api/tasks`;
+        return this.http.post<Task>(url, task, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
+    }
+
     // Put Tasks
     putTask(task: Task): Observable<Task> {
         const url = `${this.apiUrl}/api/tasks`;

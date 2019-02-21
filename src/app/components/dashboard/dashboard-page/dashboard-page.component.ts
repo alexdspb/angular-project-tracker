@@ -6,8 +6,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../services/api.service';
 import {Project} from '../../../models/Project';
 import {Task} from '../../../models/Task';
-import {Timesheet} from '../../../models/Timesheet';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
+
+// Font Awesome
+import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-dashboard-page',
@@ -19,15 +21,18 @@ export class DashboardPageComponent implements OnInit {
     private project: Project;
     private tasks: Task[] = [];
     private tasksByStatuses: object = {};
-    // modal controls
-    modalControls = {
-        name: new FormControl(''),
-        description: new FormControl(''),
-        estimate: new FormControl(''),
-        startDate: new FormControl(''),
-        endDate: new FormControl(''),
-        type: new FormControl(''),
-    };
+    // modal form
+    taskForm = new FormGroup({
+        Name: new FormControl(''),
+        Description: new FormControl(''),
+        Estimate: new FormControl(''),
+        StartDate: new FormControl(''),
+        EndDate: new FormControl(''),
+        TypeId: new FormControl(''),
+    });
+
+    // Font Awesome
+    faTrashAlt = faTrashAlt;
 
     constructor(
         private apiService: ApiService,
@@ -88,7 +93,7 @@ export class DashboardPageComponent implements OnInit {
     }
 
     showTaskModal(modal: object, task: Task|null) {
-        // create template for Task if not passed
+        // create template for Task if task not passed
         task = task ? task : {
             Id: 0,
             Name: '',
@@ -97,23 +102,35 @@ export class DashboardPageComponent implements OnInit {
             StartDate: new Date().toISOString(),
             EndDate: new Date().toISOString(),
             StatusId: this.apiService.taskStatuses[0].id,
-            ResponsibleId: 0,
+            ResponsibleId: 4010,
             TypeId: this.apiService.taskTypes[0].id,
             ProjectId: this.project.Id,
-            ReporterId: 0,
+            ReporterId: 4010,
         };
-        console.log(task);
         // set values from task to controls
-        this.modalControls.name.setValue(task.Name);
-        this.modalControls.description.setValue(task.Description);
-        this.modalControls.estimate.setValue(task.Estimate);
-        this.modalControls.startDate.setValue(task.StartDate);
-        this.modalControls.endDate.setValue(task.EndDate);
-        this.modalControls.type.setValue(task.TypeId);
+        const controls = (
+            ({Name, Description, Estimate, StartDate, EndDate, TypeId}) =>
+            ({Name, Description, Estimate, StartDate, EndDate, TypeId})
+        )(task);
+        this.taskForm.setValue(controls);
+
         // open modal
         this.modalService.open(modal, {ariaLabelledBy: 'timesheet-modal-title'}).result.then((result) => {
             // on modal save
             console.log(result);
+            task = Object.assign(task, this.taskForm.value);
+            if (task.Id === 0) {
+                // add to server
+                this.apiService.postTask(task).subscribe(addedTask => {
+                    // add to component
+                    this.tasks.push(addedTask);
+                    this.tasksByStatuses[task.StatusId].push(addedTask);
+                });
+            }
+            else {
+                // edit on server
+                this.apiService.putTask(task).subscribe();
+            }
         }, (reason) => {
             // on modal dismiss
             console.log(reason);

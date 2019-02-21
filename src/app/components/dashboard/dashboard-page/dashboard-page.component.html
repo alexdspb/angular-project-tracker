@@ -43,34 +43,41 @@
             </button>
         </div>
         <div class="modal-body">
-            <div>
-                <label for="edit-name">Name: &nbsp;</label>
-                <input id="edit-name" type="text" [formControl]="modalControls.name">
-            </div>
-            <div>
-                <label for="edit-description">Description: &nbsp;</label>
-                <input id="edit-description" type="text" [formControl]="modalControls.description">
-            </div>
-            <div>
-                <label for="edit-estimate">Estimate: &nbsp;</label>
-                <input id="edit-estimate" type="number" [formControl]="modalControls.estimate">
-            </div>
-            <div>
-                <label for="edit-start-date">Start date: &nbsp;</label>
-                <input id="edit-start-date" type="date" [formControl]="modalControls.startDate">
-            </div>
-            <div>
-                <label for="edit-end-date">End date: &nbsp;</label>
-                <input id="edit-end-date" type="date" [formControl]="modalControls.endDate">
-            </div>
-            <div>
-                <label for="edit-type">Type: &nbsp;</label>
-                <input id="edit-type" type="text" [formControl]="modalControls.type">
-            </div>
+            <form [formGroup]="taskForm">
+                <div>
+                    <label for="edit-name">Name: &nbsp;</label>
+                    <input id="edit-name" type="text" formControlName="Name">
+                </div>
+                <div>
+                    <label for="edit-description">Description: &nbsp;</label>
+                    <input id="edit-description" type="text" formControlName="Description">
+                </div>
+                <div>
+                    <label for="edit-estimate">Estimate: &nbsp;</label>
+                    <input id="edit-estimate" type="number" formControlName="Estimate">
+                </div>
+                <div>
+                    <label for="edit-start-date">Start date: &nbsp;</label>
+                    <input id="edit-start-date" type="date" formControlName="StartDate">
+                </div>
+                <div>
+                    <label for="edit-end-date">End date: &nbsp;</label>
+                    <input id="edit-end-date" type="date" formControlName="EndDate">
+                </div>
+                <div>
+                    <label for="select-type">Type: &nbsp;</label>
+                    <select id="select-type" formControlName="TypeId">
+                        <option *ngFor="let type of apiService.taskTypes" value="{{type.id}}">{{type.name}}</option>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Save</button>
-            <button type="button" class="btn btn-default" (click)="modal.dismiss('cancel click')">Cancel</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="modal.dismiss('cancel click')">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </button>
         </div>
     </div>
 </ng-template>
