@@ -8,6 +8,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+// user
+import { UserModule } from './modules/user/user.module';
 // ui
 import { NavbarComponent } from './components/ui/navbar/navbar.component';
 // home
@@ -17,9 +19,6 @@ import { TimesheetProjectComponent } from './components/home/timesheet-project/t
 import { TimesheetTaskComponent } from './components/home/timesheet-task/timesheet-task.component';
 // dashboard
 import { DashboardPageComponent } from './components/dashboard/dashboard-page/dashboard-page.component';
-// user login
-import { LoginPageComponent } from './components/user/login-page/login-page.component';
-import { UserModule } from './modules/user/user.module';
 
 @NgModule({
     declarations: [
@@ -33,8 +32,6 @@ import { UserModule } from './modules/user/user.module';
         TimesheetTaskComponent,
         // dashboard
         DashboardPageComponent,
-        // user login
-        LoginPageComponent,
     ],
     imports: [
         BrowserModule,
