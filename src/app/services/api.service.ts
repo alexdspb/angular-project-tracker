@@ -116,7 +116,7 @@ export class ApiService {
     }
 
 
-    userLogin(login: string, password: string): Observable<Employee> {
+    login(login: string, password: string): Observable<Employee> {
         const url = `${this.apiUrl}/api/employees/login`;
         const body = {Login: login, Password: password};
         return this.http.post<Employee>(url, body, this.httpOptions)

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ApiService} from '../../../services/api.service';
+
 import {Employee} from '../../../models/Employee';
+import {AuthService} from '../auth.service';
 
 @Component({
     selector: 'app-login-page',
@@ -9,14 +10,13 @@ import {Employee} from '../../../models/Employee';
     styleUrls: ['./login-page.component.less']
 })
 export class LoginPageComponent implements OnInit {
-    private loggedInUser: Employee = new Employee();
     // login form
     loginForm = new FormGroup({
         login: new FormControl(''),
         password: new FormControl(''),
     });
 
-    constructor(private apiService: ApiService) {
+    constructor(private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -25,15 +25,11 @@ export class LoginPageComponent implements OnInit {
     onSubmit() {
         const {login, password} = this.loginForm.value;
 
-        if (!login || !password) {
+        if (!login.trim() || !password.trim()) {
             return;
         }
 
-        this.apiService.userLogin(login, password).subscribe(response => {
-            if (response.Email === login && response.Password === password) {
-                this.loggedInUser = response;
-            }
-        });
+        this.authService.login(login, password).subscribe();
     }
 
 }
