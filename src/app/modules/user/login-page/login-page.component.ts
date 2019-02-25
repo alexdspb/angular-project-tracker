@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {Employee} from '../../../models/Employee';
 import {AuthService} from '../auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-login-page',
@@ -16,10 +17,17 @@ export class LoginPageComponent implements OnInit {
         password: new FormControl(''),
     });
 
-    constructor(private authService: AuthService) {
+    constructor(
+        private authService: AuthService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
     }
 
     ngOnInit() {
+        if (this.authService.currentUser) {
+            this.router.navigate(['/']);
+        }
     }
 
     onSubmit() {
@@ -29,7 +37,11 @@ export class LoginPageComponent implements OnInit {
             return;
         }
 
-        this.authService.login(login, password).subscribe();
+        this.authService.login(login, password).subscribe(user => {
+            if (user) {
+                this.router.navigate(['/']);
+            }
+        });
     }
 
 }

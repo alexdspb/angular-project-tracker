@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {ApiService} from '../../services/api.service';
 import {Employee} from '../../models/Employee';
@@ -10,14 +11,16 @@ import {Employee} from '../../models/Employee';
 })
 export class AuthService {
     private currentUserSubject: BehaviorSubject<Employee>;
-    public currentUser: Observable<Employee>;
 
-    constructor(private apiService: ApiService) {
+    constructor(
+        private apiService: ApiService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
         this.currentUserSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): Employee {
+    public get currentUser(): Employee {
         return this.currentUserSubject.value;
     }
 
