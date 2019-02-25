@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {LoginLinksComponent} from '../../../modules/user/login-links/login-links.component';
 
 @Component({
   selector: 'app-navbar',
