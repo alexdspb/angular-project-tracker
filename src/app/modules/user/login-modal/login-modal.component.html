@@ -1,0 +1,24 @@
+<div id="login-modal">
+    <div class="modal-header">
+        <h4 class="modal-title" id="login-modal-title">Login</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="loginForm">
+            <div>
+                <label for="edit-login">Login: &nbsp;</label>
+                <input id="edit-login" type="text" formControlName="login">
+            </div>
+            <div>
+                <label for="edit-password">Password: &nbsp;</label>
+                <input id="edit-password" type="password" formControlName="password">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
+        <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+    </div>
+</div>

@@ -1,13 +1,13 @@
 <div>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item" *ngIf="authService.currentUser === null">
-      <a class="nav-link" href="/user/login">Login</a>
+      <a class="nav-link" (click)="showLoginModal()">Login</a>
     </li>
       <li class="nav-item" *ngIf="authService.currentUser !== null">
           <span style="display: block; padding: .5rem 1rem;">Hello, {{authService.currentUser.First}}!</span>
       </li>
     <li class="nav-item" *ngIf="authService.currentUser !== null">
-      <a class="nav-link" href="#" (click)="authService.logout()">Logout</a>
+      <a class="nav-link" (click)="authService.logout()">Logout</a>
     </li>
   </ul>
 </div>
