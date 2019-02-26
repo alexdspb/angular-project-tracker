@@ -4,13 +4,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {LoginLinksComponent} from './login-links/login-links.component';
-import {LoginPageComponent} from './login-page/login-page.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @NgModule({
     declarations: [
         LoginLinksComponent,
-        LoginPageComponent,
         LoginModalComponent
     ],
     imports: [
@@ -20,7 +18,6 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     ],
     exports: [
         LoginLinksComponent,
-        LoginPageComponent,
     ],
     entryComponents: [
         LoginModalComponent
