@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../auth.service';
 
@@ -9,11 +9,13 @@ import {AuthService} from '../auth.service';
     styleUrls: ['./login-modal.component.less']
 })
 export class LoginModalComponent implements OnInit {
+    loading = false;
+    submitted = false;
 
     // modal form
     loginForm = new FormGroup({
-        login: new FormControl(''),
-        password: new FormControl(''),
+        login: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
     });
 
     constructor(
@@ -25,21 +27,27 @@ export class LoginModalComponent implements OnInit {
     ngOnInit() {
     }
 
+    // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
+
     onLogin() {
         const {login, password} = this.loginForm.value;
 
-        if (!login.trim() || !password.trim()) {
+        this.submitted = true;
+
+        if (this.loginForm.invalid) {
             return;
         }
 
-
+        this.loading = true;
         this.authService.login(login.trim(), password.trim()).subscribe(user => {
-            // todo: form validation
             if (user) {
                 this.activeModal.close();
             }
+            this.loading = false;
         }, error => {
             console.log(error);
+            this.loading = false;
         });
     }
 
