@@ -11,6 +11,7 @@ import {AuthService} from '../auth.service';
 export class LoginModalComponent implements OnInit {
     loading = false;
     submitted = false;
+    error = false;
 
     // modal form
     loginForm = new FormGroup({
@@ -30,6 +31,10 @@ export class LoginModalComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
+    onChange() {
+        this.error = false;
+    }
+
     onLogin() {
         const {login, password} = this.loginForm.value;
 
@@ -47,6 +52,7 @@ export class LoginModalComponent implements OnInit {
             this.loading = false;
         }, error => {
             console.log(error);
+            this.error = error.error;
             this.loading = false;
         });
     }
