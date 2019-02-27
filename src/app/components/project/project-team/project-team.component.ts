@@ -28,8 +28,6 @@ export class ProjectTeamComponent implements OnInit {
     }
 
     ngOnInit() {
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.apiService.getTeamByProjectId(id).subscribe(team => this.team = team);
     }
 
     deleteMember(member: Employee) {
@@ -38,5 +36,11 @@ export class ProjectTeamComponent implements OnInit {
                 this.team = this.team.filter(item => item.Id !== member.Id);
             }
         });
+    }
+
+    ngOnChanges(changes) {
+        if(changes.project && changes.project.currentValue && changes.project.currentValue.Id) {
+            this.apiService.getTeamByProjectId(changes.project.currentValue.Id).subscribe(team => this.team = team);
+        }
     }
 }

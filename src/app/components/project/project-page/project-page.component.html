@@ -1,4 +1,6 @@
 
+<app-projects-bar [projects]="projects" [project]="project" (switchToProject)="switchToProject($event)"></app-projects-bar>
+
 <h1>{{project?.Name}}</h1>
 
 <div id="project-wrapper">
