@@ -81,8 +81,21 @@ export class ProjectTeamComponent implements OnInit {
     }
 
     ngOnChanges(changes) {
+        // when project changed and not empty
         if(changes.project && changes.project.currentValue && changes.project.currentValue.Id) {
-            this.apiService.getTeamByProjectId(changes.project.currentValue.Id).subscribe(team => this.team = team);
+            // get team from server
+            this.apiService.getTeamByProjectId(changes.project.currentValue.Id).subscribe(team => {
+                // sort team by position (PMs first)
+                this.team = team.sort((a, b) => {
+                    if (a.PositionId < b.PositionId) {
+                        return -1;
+                    } else if (a.PositionId > b.PositionId) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+            });
         }
     }
 }
