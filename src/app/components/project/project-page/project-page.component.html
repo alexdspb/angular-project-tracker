@@ -1,9 +1,9 @@
 
-<app-projects-bar [projects]="projects" [project]="project" (switchToProject)="switchToProject($event)"></app-projects-bar>
+<app-projects-bar [project]="project" (switchToProject)="switchToProject($event)"></app-projects-bar>
 
-<h1>{{project?.Name}}</h1>
 
-<div id="project-wrapper">
+<div id="project-wrapper" *ngIf="project">
+    <h1>{{project?.Name}}</h1>
     <div id="project-info">
         <div><strong>Customer:</strong>&nbsp;<span>{{project?.CustomerName}}</span></div>
         <div><strong>Start date:</strong>&nbsp;<span>{{project?.StartDate|date:'longDate'}}</span></div>

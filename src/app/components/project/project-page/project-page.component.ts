@@ -11,7 +11,6 @@ import {Project} from '../../../models/Project';
 })
 export class ProjectPageComponent implements OnInit {
     project: Project;
-    projects: Project[];
 
     constructor(
         private route: ActivatedRoute,
@@ -22,8 +21,9 @@ export class ProjectPageComponent implements OnInit {
 
     ngOnInit() {
         const id = +this.route.snapshot.paramMap.get('id');
-        this.apiService.getProjects().subscribe(projects => this.projects = projects);
-        this.apiService.getProjectById(id).subscribe(project => this.project = project);
+        if (id) {
+            this.apiService.getProjectById(id).subscribe(project => this.project = project);
+        }
     }
 
     switchToProject(project) {

@@ -1,8 +1,8 @@
-<p>
+<div>
   <span *ngFor="let item of projects; let i=index">
     <button type="button" class="btn btn-sm btn-link" (click)="go(item)" [disabled]="item.Id === project?.Id">
       {{item.Name}}
     </button>
     <span *ngIf="i < projects.length - 1">&nbsp;|&nbsp;</span>
   </span>
-</p>
+</div>
