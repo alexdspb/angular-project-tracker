@@ -8,8 +8,11 @@
 
 <div class="project-header">
     <h1>{{project?.Name}}</h1>
-    <p style="text-align: center">{{tasks.length}} tasks</p>
-    <div id="project-actions"><button type="button" class="btn btn-primary" (click)="showTaskModal(taskModal)">New task</button></div>
+    <div style="text-align: center; margin-bottom: 1em;">
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="router.navigateByUrl('/projects/' + project.Id)">View project</button>
+        <div>{{tasks.length}} tasks</div>
+    </div>
+    <div id="project-actions"><button type="button" class="btn btn-sm btn-primary" (click)="showTaskModal(taskModal)">New task</button></div>
 </div>
 <div class="statuses-list" cdkDropListGroup>
     <div cdkDropList
