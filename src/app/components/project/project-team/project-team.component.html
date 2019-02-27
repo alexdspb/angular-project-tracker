@@ -3,7 +3,7 @@
     <thead class="thead-light">
         <tr>
             <th scope="col">Team</th>
-            <th scope="col" colspan="5" class="text-right"><button class="btn btn-sm btn-primary">Add to team</button></th>
+            <th scope="col" colspan="5" class="text-right"><button class="btn btn-sm btn-primary" (click)="showTeamModal(teamModal)">Add to team</button></th>
         </tr>
     </thead>
     <thead>
@@ -40,3 +40,39 @@
         </tr>
     </tbody>
 </table>
+
+<ng-template #teamModal let-modal>
+    <div id="team-modal">
+        <div class="modal-header">
+            <h4 class="modal-title" id="team-modal-title">Add members to Team</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Select members and push the button to Add.</p>
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let employee of employees" (click)="toggleEmployee(employee)" [className]="(selected.indexOf(employee.Id) !== -1) ? 'table-info' : ''">
+                    <td><input type="checkbox" [checked]="selected.indexOf(employee.Id) !== -1"/></td>
+                    <td>{{employee.FullName}}</td>
+                    <td>{{employee.Position.Name}}</td>
+                    <td>{{employee.Location.Name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('save click')">Add to Team</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>

@@ -71,9 +71,9 @@ export class ApiService {
     /* Employees */
 
     // Get Employees
-    getEmployees(): Observable<any[]> {
+    getEmployees(): Observable<Employee[]> {
         const url = `${this.apiUrl}/api/employees`;
-        return this.http.get<any[]>(url, this.httpOptions)
+        return this.http.get<Employee[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
@@ -92,6 +92,13 @@ export class ApiService {
         const httpOptions = Object.assign({...this.httpOptions}, {params});
         return this.http.delete<object>(url, httpOptions)
             .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
+    }
+
+    addEmployeeToTeam(employeeId: number, projectId: number): Observable<Employee> {
+        const url = `${this.apiUrl}/api/team`;
+        const body = {EmployeeId: employeeId, ProjectId: projectId};
+        return this.http.post<Employee>(url, body, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
     }
 
     // Login
