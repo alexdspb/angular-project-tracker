@@ -33,6 +33,10 @@ export class ProjectTeamComponent implements OnInit {
     }
 
     deleteMember(member: Employee) {
-        console.log('delete', deleteMember);
+        this.apiService.deleteMemberFromTeam(member.Id, this.project.Id).subscribe(response => {
+            if (response.EmployeeId === member.Id && response.ProjectId === this.project.Id) {
+                this.team = this.team.filter(item => item.Id !== member.Id);
+            }
+        });
     }
 }

@@ -77,11 +77,21 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    /* Team */
+
     // Get Team by Project
     getTeamByProjectId(id: number): Observable<Employee[]> {
         const url = `${this.apiUrl}/api/team/${id}`;
         return this.http.get<Employee[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    deleteMemberFromTeam(memberId: number, projectId: number): Observable<object> {
+        const url = `${this.apiUrl}/api/team`;
+        const params = {EmployeeId: memberId, ProjectId: projectId};
+        const httpOptions = Object.assign({...this.httpOptions}, {params});
+        return this.http.delete<object>(url, httpOptions)
+            .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
 
     // Login
