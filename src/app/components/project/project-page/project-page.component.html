@@ -1,0 +1,18 @@
+
+<h1>{{project.Name}}</h1>
+
+<div id="project-wrapper">
+    <div id="project-info">
+        <div><strong>Customer:</strong>&nbsp;<span>{{project.CustomerName}}</span></div>
+        <div><strong>Start date:</strong>&nbsp;<span>{{project.StartDate|date:'longDate'}}</span></div>
+        <div><strong>End date:</strong>&nbsp;<span>{{project.EndDate|date:'longDate'}}</span></div>
+        <div><strong>Description:</strong><br /><span>{{project.Description}}</span></div>
+        <p>
+            <br />
+            <button type="button" class="btn btn-primary" (click)="router.navigateByUrl('/dashboard?projectId=' + project.Id)">Dashboard</button>
+        </p>
+    </div>
+
+    <app-project-team [project]="project"></app-project-team>
+</div>
+

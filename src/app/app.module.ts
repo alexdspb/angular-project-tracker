@@ -19,6 +19,8 @@ import { TimesheetProjectComponent } from './components/home/timesheet-project/t
 import { TimesheetTaskComponent } from './components/home/timesheet-task/timesheet-task.component';
 // dashboard
 import { DashboardPageComponent } from './components/dashboard/dashboard-page/dashboard-page.component';
+import { ProjectPageComponent } from './components/project/project-page/project-page.component';
+import { ProjectTeamComponent } from './components/project/project-team/project-team.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +34,8 @@ import { DashboardPageComponent } from './components/dashboard/dashboard-page/da
         TimesheetTaskComponent,
         // dashboard
         DashboardPageComponent,
+        ProjectPageComponent,
+        ProjectTeamComponent,
     ],
     imports: [
         BrowserModule,

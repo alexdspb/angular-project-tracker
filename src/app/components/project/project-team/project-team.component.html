@@ -1,0 +1,42 @@
+
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Team</th>
+            <th scope="col" colspan="5" class="text-right"><button class="btn btn-sm btn-primary">Add to team</button></th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Email</th>
+            <th scope="col">Skype</th>
+            <th scope="col">Location</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let member of team">
+            <td>{{member.FullName}}</td>
+            <td>{{member.Position.Name}}</td>
+            <td>{{member.Email}}</td>
+            <td>{{member.Skype}}</td>
+            <td>{{member.Location.Name}}</td>
+            <td>
+                <ng-template #popTitle>Delete {{member.FullName}}?</ng-template>
+                <ng-template #popContent>
+                    <button class="btn btn-sm btn-success">No!</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deleteMember(member)">Delete.</button>
+                </ng-template>
+                <button type="button"
+                        class="btn btn-sm btn-danger delete-button"
+                        title="Delete this member!"
+                        placement="left" [ngbPopover]="popContent" [popoverTitle]="popTitle"
+                >
+                    <fa-icon [icon]="faTrashAlt"></fa-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

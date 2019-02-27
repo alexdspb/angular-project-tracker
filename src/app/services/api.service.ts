@@ -6,6 +6,8 @@ import {Project} from '../models/Project';
 import {Task} from '../models/Task';
 import {Timesheet} from '../models/Timesheet';
 import {Employee} from '../models/Employee';
+import {Position} from '../models/Position';
+import {Location} from '../models/Location';
 
 @Injectable({
     providedIn: 'root'
@@ -38,8 +40,35 @@ export class ApiService {
         {id: 5, name: 'Task'},
     ];
 
+    positions: Position[] = [
+        {Id: 1, Name: 'PM'},
+        {Id: 2, Name: 'Developer'},
+        {Id: 3, Name: 'QA'},
+    ];
+
+    locations: Location[] = [
+        {Id: 1, Name: 'New York'},
+        {Id: 2, Name: 'London'},
+        {Id: 3, Name: 'Kharkiv'},
+        {Id: 4, Name: 'St.Petersburg'},
+        {Id: 5, Name: 'Voronezh'},
+        {Id: 6, Name: 'Kherson'},
+        {Id: 7, Name: 'Zug'},
+        {Id: 8, Name: 'Kyiv'},
+        {Id: 9, Name: 'Dnepr'},
+        {Id: 10, Name: 'Odessa'},
+        {Id: 11, Name: 'Lublin'},
+        {Id: 12, Name: 'Buenos Aires'},
+        {Id: 13, Name: 'Wroclaw'},
+        {Id: 14, Name: 'Riga'},
+        {Id: 15, Name: 'Sofia'},
+        {Id: 16, Name: 'Wroclaw'},
+    ];
+
     constructor(private http: HttpClient) {
     }
+
+    /* Employees */
 
     // Get Employees
     getEmployees(): Observable<any[]> {
@@ -47,6 +76,23 @@ export class ApiService {
         return this.http.get<any[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
+
+    // Get Team by Project
+    getTeamByProjectId(id: number): Observable<Employee[]> {
+        const url = `${this.apiUrl}/api/team/${id}`;
+        return this.http.get<Employee[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Login
+    login(login: string, password: string): Observable<Employee> {
+        const url = `${this.apiUrl}/api/employees/login`;
+        const body = {Login: login, Password: password};
+        return this.http.post<Employee>(url, body, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
+    }
+
+    /* Projects */
 
     // Get Project by id
     getProjectById(id: number): Observable<Project> {
@@ -69,6 +115,8 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    /* Tasks */
+
     // Post Task
     postTask(task: Task): Observable<Task> {
         const url = `${this.apiUrl}/api/tasks`;
@@ -89,6 +137,8 @@ export class ApiService {
         return this.http.delete<number>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
+
+    /* Timesheets */
 
     // Get Timesheets by Task
     getTimesheetsByTaskId(id: number): Observable<Timesheet[]> {
@@ -116,16 +166,8 @@ export class ApiService {
     }
 
 
-    login(login: string, password: string): Observable<Employee> {
-        const url = `${this.apiUrl}/api/employees/login`;
-        const body = {Login: login, Password: password};
-        return this.http.post<Employee>(url, body, this.httpOptions)
-            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
-    }
-
-
     private logRequest(request, response) {
-        //console.log(request, response);
+        console.log(request, response);
     }
 
     private handleError<T>(operation = 'operation', result?: T) {

@@ -1,3 +1,6 @@
+import {Position} from './Position';
+import {Location} from './Location';
+
 export class Employee {
     Id: number;
     First: string;
@@ -10,6 +13,8 @@ export class Employee {
     Phone: string;
     ImageUrl: string;
     PositionId: number;
+    Position: Position;
     LocationId: number;
+    Location: Location;
     FullName: string;
 }
