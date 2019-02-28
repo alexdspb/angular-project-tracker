@@ -42,21 +42,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <ng-template #popTitle>Delete {{project.Name}}?</ng-template>
-    <ng-template #popContent>
-      <button class="btn btn-success">No!</button>&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-danger" (click)="deleteProject(project)">Delete.</button>
-    </ng-template>
-
     <button type="button" class="btn btn-primary" (click)="saveProject(projectForm.value)">Save</button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
-    <button type="button"
-            class="btn btn-danger delete-button"
-            title="Delete this project!"
-            placement="top" [ngbPopover]="popContent" [popoverTitle]="popTitle"
-            [hidden]="!project.Id"
-    >
-      <fa-icon [icon]="faTrashAlt"></fa-icon>
-    </button>
   </div>
 </div>
