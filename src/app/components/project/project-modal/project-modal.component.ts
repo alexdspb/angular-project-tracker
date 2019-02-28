@@ -77,14 +77,4 @@ export class ProjectModalComponent implements OnInit {
     }
   }
 
-  deleteProject(project) {
-    console.error('deleteProject()', project);
-    this.apiService.deleteProject(project).subscribe(response => {
-      this.activeModal.dismiss();
-      if (this.returnUrl) {
-        this.router.navigateByUrl(this.returnUrl);
-      }
-    });
-  }
-
 }
