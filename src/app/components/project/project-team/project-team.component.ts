@@ -54,7 +54,7 @@ export class ProjectTeamComponent implements OnInit {
                     // send to server
                     this.apiService.addEmployeeToTeam(employeeId, this.project.Id).subscribe(employee => {
                         // update in UI
-                        this.team.push(employee);
+                        this.team = this.sortTeamByPosition([...this.team, employee]);
                     });
                 }
             }).catch(error => {
@@ -86,16 +86,20 @@ export class ProjectTeamComponent implements OnInit {
             // get team from server
             this.apiService.getTeamByProjectId(changes.project.currentValue.Id).subscribe(team => {
                 // sort team by position (PMs first)
-                this.team = team.sort((a, b) => {
-                    if (a.PositionId < b.PositionId) {
-                        return -1;
-                    } else if (a.PositionId > b.PositionId) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
+                this.team = this.sortTeamByPosition(team);
             });
         }
+    }
+
+    sortTeamByPosition(team: Employee[]) {
+        return [...team].sort((a, b) => {
+            if (a.PositionId < b.PositionId) {
+                return -1;
+            } else if (a.PositionId > b.PositionId) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 }
