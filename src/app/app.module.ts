@@ -22,6 +22,7 @@ import { DashboardPageComponent } from './components/dashboard/dashboard-page/da
 import { ProjectPageComponent } from './components/project/project-page/project-page.component';
 import { ProjectTeamComponent } from './components/project/project-team/project-team.component';
 import { ProjectsBarComponent } from './components/_shared/projects-bar/projects-bar.component';
+import { ProjectModalComponent } from './components/project/project-modal/project-modal.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { ProjectsBarComponent } from './components/_shared/projects-bar/projects
         ProjectPageComponent,
         ProjectTeamComponent,
         ProjectsBarComponent,
+        ProjectModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -48,6 +50,9 @@ import { ProjectsBarComponent } from './components/_shared/projects-bar/projects
         ReactiveFormsModule,
         DragDropModule,
         UserModule,
+    ],
+    entryComponents: [
+        ProjectModalComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

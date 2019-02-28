@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {ApiService} from '../../../services/api.service';
 import {Project} from '../../../models/Project';
+import {ProjectModalComponent} from '../project-modal/project-modal.component';
 
 @Component({
     selector: 'app-project-page',
@@ -16,6 +18,7 @@ export class ProjectPageComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private apiService: ApiService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -28,6 +31,14 @@ export class ProjectPageComponent implements OnInit {
 
     switchToProject(project) {
         this.project = project;
+    }
+
+    showProjectModal() {
+        // open modal
+        const modalRef = this.modalService.open(ProjectModalComponent, {size: 'lg'});
+        // pass properties to component
+        modalRef.componentInstance.returnUrl = '/projects';
+        modalRef.componentInstance.project = this.project;
     }
 
 }
