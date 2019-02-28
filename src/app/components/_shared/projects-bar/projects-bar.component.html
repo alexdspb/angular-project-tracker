@@ -1,8 +1,10 @@
 <div>
+  <span>Projects:</span>
   <span *ngFor="let item of projects; let i=index">
     <button type="button" class="btn btn-sm btn-link" (click)="go(item)" [disabled]="item.Id === project?.Id">
       {{item.Name}}
     </button>
     <span *ngIf="i < projects.length - 1">&nbsp;|&nbsp;</span>
   </span>
+  &nbsp;&nbsp;<button type="button" class="btn btn-sm btn-outline-primary" (click)="openProjectModal()">Create new project</button>
 </div>

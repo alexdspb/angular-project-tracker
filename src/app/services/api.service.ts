@@ -132,6 +132,27 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Post Project
+    postProject(project: Project): Observable<Project> {
+        const url = `${this.apiUrl}/api/projects`;
+        return this.http.post<Project>(url, project, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
+    }
+
+    // Put Project
+    putProject(project: Project): Observable<Project> {
+        const url = `${this.apiUrl}/api/projects`;
+        return this.http.put<Project>(url, project, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
+    // Delete Project
+    deleteProject(project: Project): Observable<number> {
+        const url = `${this.apiUrl}/api/projects/${project.Id}`;
+        return this.http.delete<number>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
+    }
+
     /* Tasks */
 
     // Post Task

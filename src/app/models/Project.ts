@@ -1,9 +1,9 @@
 export class Project {
-    Id: number;
-    Name: string;
-    Description: string;
-    CustomerName: string;
-    StartDate: string;
-    EndDate: string;
-    ImageUrl: string;
+    Id: number = 0;
+    Name: string = '';
+    Description: string = '';
+    CustomerName: string = '';
+    StartDate: string = new Date().toISOString();
+    EndDate: string = new Date().toISOString();
+    ImageUrl: string = '';
 }

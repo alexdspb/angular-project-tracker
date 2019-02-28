@@ -1,7 +1,9 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {Project} from '../../../models/Project';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../services/api.service';
+import {ProjectModalComponent} from '../../project/project-modal/project-modal.component';
 
 @Component({
     selector: 'app-projects-bar',
@@ -17,6 +19,7 @@ export class ProjectsBarComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private apiService: ApiService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -29,6 +32,13 @@ export class ProjectsBarComponent implements OnInit {
         this.router.navigate([uri]).then(result => {
             this.switchToProject.emit(project);
         });
+    }
+
+    openProjectModal() {
+        // open modal
+        const modalRef = this.modalService.open(ProjectModalComponent, {size: 'lg'}).result.then(result => {
+
+        }, reason => {});
     }
 
 }

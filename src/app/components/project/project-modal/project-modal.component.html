@@ -8,33 +8,34 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="projectForm">
+      <input type="hidden" formControlName="Id">
       <div class="form-group">
-        <label for="edit-name" class="col-sm-3 col-form-label">Name: &nbsp;</label>
-        <div class="col-sm-9">
+        <label for="edit-name" class="col-sm-2 col-form-label">Name: &nbsp;</label>
+        <div class="col-sm-10">
           <input id="edit-name" class="form-control form-control-sm" type="text" placeholder="Name" formControlName="Name">
         </div>
       </div>
       <div class="form-group">
-        <label for="edit-customer-name" class="col-sm-3 col-form-label">Customer: &nbsp;</label>
-        <div class="col-sm-9">
+        <label for="edit-customer-name" class="col-sm-2 col-form-label">Customer: &nbsp;</label>
+        <div class="col-sm-10">
           <input id="edit-customer-name" class="form-control form-control-sm" type="text" placeholder="Customer" formControlName="CustomerName">
         </div>
       </div>
       <div class="form-group">
-        <label for="edit-start-date" class="col-sm-3 col-form-label">Start Date: &nbsp;</label>
-        <div class="col-sm-9">
-          <input id="edit-start-date" class="form-control form-control-sm" type="date" placeholder="Start Date" formControlName="StartDate">
+        <label for="edit-start-date" class="col-sm-2 col-form-label">Start Date: &nbsp;</label>
+        <div class="col-sm-4">
+          <input id="edit-start-date" class="form-control form-control-sm" placeholder="Start Date"
+                 formControlName="StartDate" ngbDatepicker #startPicker="ngbDatepicker" (click)="startPicker.toggle()">
+        </div>
+        <label for="edit-end-date" class="col-sm-2 col-form-label">End Date: &nbsp;</label>
+        <div class="col-sm-4">
+          <input id="edit-end-date" class="form-control form-control-sm" placeholder="End Date"
+                 formControlName="EndDate" ngbDatepicker #endPicker="ngbDatepicker" (click)="endPicker.toggle()">
         </div>
       </div>
       <div class="form-group">
-        <label for="edit-end-date" class="col-sm-3 col-form-label">End Date: &nbsp;</label>
-        <div class="col-sm-9">
-          <input id="edit-end-date" class="form-control form-control-sm" type="date" placeholder="End Date" formControlName="EndDate">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="edit-description" class="col-sm-3 col-form-label">Description: &nbsp;</label>
-        <div class="col-sm-9">
+        <label for="edit-description" class="col-sm-2 col-form-label">Description: &nbsp;</label>
+        <div class="col-sm-10">
           <textarea id="edit-description" class="form-control form-control-sm" rows="3" placeholder="Description" formControlName="Description"></textarea>
         </div>
       </div>
@@ -47,8 +48,8 @@
       <button class="btn btn-danger" (click)="deleteProject(project)">Delete.</button>
     </ng-template>
 
-    <button type="button" class="btn btn-primary" (click)="activeModal.close('save click')">Save</button>
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveProject(projectForm.value)">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
     <button type="button"
             class="btn btn-danger delete-button"
             title="Delete this project!"
