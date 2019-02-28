@@ -29,10 +29,6 @@ export class ProjectPageComponent implements OnInit {
         }
     }
 
-    switchToProject(project) {
-        this.project = project;
-    }
-
     showProjectModal() {
         // open modal
         const modalRef = this.modalService.open(ProjectModalComponent, {size: 'lg'});

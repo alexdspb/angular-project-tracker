@@ -21,7 +21,6 @@ import { TimesheetTaskComponent } from './components/home/timesheet-task/timeshe
 import { DashboardPageComponent } from './components/dashboard/dashboard-page/dashboard-page.component';
 import { ProjectPageComponent } from './components/project/project-page/project-page.component';
 import { ProjectTeamComponent } from './components/project/project-team/project-team.component';
-import { ProjectsBarComponent } from './components/_shared/projects-bar/projects-bar.component';
 import { ProjectModalComponent } from './components/project/project-modal/project-modal.component';
 
 @NgModule({
@@ -38,7 +37,6 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
         DashboardPageComponent,
         ProjectPageComponent,
         ProjectTeamComponent,
-        ProjectsBarComponent,
         ProjectModalComponent,
     ],
     imports: [
