@@ -33,8 +33,12 @@ export class ProjectPageComponent implements OnInit {
         // open modal
         const modalRef = this.modalService.open(ProjectModalComponent, {size: 'lg'});
         // pass properties to component
-        modalRef.componentInstance.returnUrl = '/projects';
         modalRef.componentInstance.project = this.project;
+        // deal with result
+        modalRef.result.then(project => {
+            this.project = project;
+            console.log('showProjectModal()', this.project);
+        }, () => {});
     }
 
 }

@@ -12,37 +12,57 @@
       <div class="form-group">
         <label for="edit-name" class="col-sm-2 col-form-label">Name: &nbsp;</label>
         <div class="col-sm-10">
-          <input id="edit-name" class="form-control form-control-sm" type="text" placeholder="Name" formControlName="Name">
+          <input id="edit-name" class="form-control form-control-sm" type="text" placeholder="Name"
+                 formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">
+          <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+            <div *ngIf="f.Name.errors.required">Name is required</div>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="edit-customer-name" class="col-sm-2 col-form-label">Customer: &nbsp;</label>
         <div class="col-sm-10">
-          <input id="edit-customer-name" class="form-control form-control-sm" type="text" placeholder="Customer" formControlName="CustomerName">
+          <input id="edit-customer-name" class="form-control form-control-sm" type="text" placeholder="Customer"
+                 formControlName="CustomerName" [ngClass]="{ 'is-invalid': submitted && f.CustomerName.errors }">
+          <div *ngIf="submitted && f.CustomerName.errors" class="invalid-feedback">
+            <div *ngIf="f.CustomerName.errors.required">Customer is required</div>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="edit-start-date" class="col-sm-2 col-form-label">Start Date: &nbsp;</label>
         <div class="col-sm-4">
           <input id="edit-start-date" class="form-control form-control-sm" placeholder="Start Date"
+                 [ngClass]="{ 'is-invalid': submitted && f.StartDate.errors }"
                  formControlName="StartDate" ngbDatepicker #startPicker="ngbDatepicker" (click)="startPicker.toggle()">
+          <div *ngIf="submitted && f.StartDate.errors" class="invalid-feedback">
+            <div *ngIf="f.StartDate.errors.required">Start Date is required</div>
+          </div>
         </div>
         <label for="edit-end-date" class="col-sm-2 col-form-label">End Date: &nbsp;</label>
         <div class="col-sm-4">
           <input id="edit-end-date" class="form-control form-control-sm" placeholder="End Date"
+                 [ngClass]="{ 'is-invalid': submitted && f.EndDate.errors }"
                  formControlName="EndDate" ngbDatepicker #endPicker="ngbDatepicker" (click)="endPicker.toggle()">
+          <div *ngIf="submitted && f.EndDate.errors" class="invalid-feedback">
+            <div *ngIf="f.EndDate.errors.required">End Date is required</div>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="edit-description" class="col-sm-2 col-form-label">Description: &nbsp;</label>
         <div class="col-sm-10">
-          <textarea id="edit-description" class="form-control form-control-sm" rows="3" placeholder="Description" formControlName="Description"></textarea>
+          <textarea id="edit-description" class="form-control form-control-sm" rows="3" placeholder="Description"
+                    formControlName="Description" [ngClass]="{ 'is-invalid': submitted && f.Description.errors }"></textarea>
+          <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+            <div *ngIf="f.Description.errors.required">Description is required</div>
+          </div>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="saveProject(projectForm.value)">Save</button>
+    <button type="button" class="btn btn-primary" (click)="onSave(projectForm.value)">Save</button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
   </div>
 </div>
