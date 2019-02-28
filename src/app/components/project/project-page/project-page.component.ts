@@ -37,7 +37,6 @@ export class ProjectPageComponent implements OnInit {
         // deal with result
         modalRef.result.then(project => {
             this.project = project;
-            console.log('showProjectModal()', this.project);
         }, () => {});
     }
 

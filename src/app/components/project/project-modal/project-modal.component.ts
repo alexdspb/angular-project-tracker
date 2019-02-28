@@ -25,6 +25,7 @@ export class ProjectModalComponent implements OnInit {
     });
     loading = false;
     submitted = false;
+    error = false;
 
     constructor(
         private activeModal: NgbActiveModal,
@@ -67,10 +68,23 @@ export class ProjectModalComponent implements OnInit {
             StartDate: this.dateParserFormatter.format(form.StartDate),
             EndDate: this.dateParserFormatter.format(form.EndDate),
         };
-        // todo: save on server
+
         this.loading = true;
-        // return project to main component
-        this.activeModal.close(this.project);
+        const subscription = this.project.Id ? this.apiService.putProject(this.project) : this.apiService.postProject(this.project);
+        // save on server
+        subscription.subscribe({
+            next: project => {
+                this.loading = false;
+                this.error = false;
+                this.activeModal.close(project);
+            },
+            error: error => {
+                console.error(error);
+                this.loading = false;
+                this.error = error;
+            },
+            complete: () => {}
+        });
     }
 
 }

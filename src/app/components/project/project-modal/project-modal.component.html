@@ -64,9 +64,18 @@
                 </div>
             </div>
         </form>
+        <div class="col-sm-12" *ngIf="submitted && error">
+            <ngb-alert [type]="'danger'" [dismissible]="false">{{error?.Message}}{{error?.message}}</ngb-alert>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="onSave(projectForm.value)">Save</button>
+        <button type="button" class="btn btn-primary" (click)="onSave(projectForm.value)">
+            <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>&nbsp;</span>
+            </span>
+            <span>Save</span>
+        </button>
         <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
     </div>
 </div>
