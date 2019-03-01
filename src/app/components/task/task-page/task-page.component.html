@@ -7,7 +7,7 @@
     </div>
     <div id="task-info" class="row">
         <div class="col-sm-6">
-            <div><strong>Project:</strong>&nbsp;<span>{{project?.Name}}</span></div>
+            <div><strong>Project:</strong>&nbsp;<span><a href="/projects/{{project?.Id}}">{{project?.Name}}</a></span></div>
             <div><strong>Type:</strong>&nbsp;<span>{{apiService.taskType(task.TypeId).Name}}</span></div>
             <div><strong>Status:</strong>&nbsp;<span>{{apiService.taskStatus(task.StatusId).Name}}</span></div>
             <div><strong>Estimate:</strong>&nbsp;<span>{{task.Estimate}}</span></div>
