@@ -70,6 +70,20 @@ export class ApiService {
     constructor(private http: HttpClient) {
     }
 
+    taskStatus(id: number): Status | null {
+        if (!id) {
+            return null;
+        }
+        return this.taskStatuses.filter(status => status.Id !== id).shift();
+    }
+
+    taskType(id: number): TaskType | null {
+        if (!id) {
+            return null;
+        }
+        return this.taskTypes.filter(status => status.Id !== id).shift();
+    }
+
     /* Employees */
 
     // Get Employees
@@ -156,6 +170,13 @@ export class ApiService {
     }
 
     /* Tasks */
+
+    // Get Task
+    getTask(id: number): Observable<Task> {
+        const url = `${this.apiUrl}/api/tasks/${id}`;
+        return this.http.get<Task>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
 
     // Post Task
     postTask(task: Task): Observable<Task> {

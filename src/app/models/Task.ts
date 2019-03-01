@@ -1,3 +1,5 @@
+import {Employee} from './Employee';
+
 export class Task {
     Id: number = 0;
     Name: string = '';
@@ -7,7 +9,9 @@ export class Task {
     EndDate: string = new Date().toISOString();
     StatusId: number;
     ResponsibleId: number;
+    Responsible: Employee;
     TypeId: number;
     ProjectId: number;
     ReporterId: number;
+    Reporter: Employee;
 }

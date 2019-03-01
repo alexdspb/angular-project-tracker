@@ -32,6 +32,10 @@
             >
                 <div class="task-name">{{task.Name}}</div>
                 <div class="task-description">{{task.Description}}</div>
+                <div class="task-actions">
+                    <fa-icon [icon]="faEdit" (click)="showTaskModal(taskModal, task)"></fa-icon>
+                    <fa-icon [icon]="faArrowRight" (click)="openTaskPage(task)"></fa-icon>
+                </div>
             </div>
         </div>
     </div>

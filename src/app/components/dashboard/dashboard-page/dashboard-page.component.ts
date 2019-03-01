@@ -9,7 +9,7 @@ import {Task} from '../../../models/Task';
 import {FormControl, FormGroup} from '@angular/forms';
 
 // Font Awesome
-import {faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faTrashAlt, faArrowRight, faEdit} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-dashboard-page',
@@ -34,6 +34,8 @@ export class DashboardPageComponent implements OnInit {
 
     // Font Awesome
     faTrashAlt = faTrashAlt;
+    faArrowRight = faArrowRight;
+    faEdit = faEdit;
 
     constructor(
         private apiService: ApiService,
@@ -91,6 +93,10 @@ export class DashboardPageComponent implements OnInit {
             const task: Task = {...event.item.data, StatusId: event.container.id};
             this.apiService.putTask(task).subscribe();
         }
+    }
+
+    openTaskPage(task: Task) {
+        this.router.navigateByUrl(`/tasks/${task.Id}`);
     }
 
     showTaskModal(modal: object, task: Task|null) {

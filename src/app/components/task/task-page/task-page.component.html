@@ -1,0 +1,23 @@
+<div id="task-wrapper" *ngIf="task">
+    <h1>Task {{task.Name}}</h1>
+    <div id="task-actions" class="row">
+        <button type="button" class="btn btn-sm btn-primary">New</button>
+        <button type="button" class="btn btn-sm btn-success">Edit</button>
+        <button type="button" class="btn btn-sm btn-danger">Delete</button>
+    </div>
+    <div id="task-info" class="row">
+        <div class="col-sm-6">
+            <div><strong>Project:</strong>&nbsp;<span>{{project?.Name}}</span></div>
+            <div><strong>Type:</strong>&nbsp;<span>{{apiService.taskType(task.TypeId).Name}}</span></div>
+            <div><strong>Status:</strong>&nbsp;<span>{{apiService.taskStatus(task.StatusId).Name}}</span></div>
+            <div><strong>Estimate:</strong>&nbsp;<span>{{task.Estimate}}</span></div>
+            <div><strong>Start date:</strong>&nbsp;<span>{{task.StartDate|date:'longDate'}}</span></div>
+            <div><strong>End date:</strong>&nbsp;<span>{{task.EndDate|date:'longDate'}}</span></div>
+        </div>
+        <div class="col-sm-6">
+            <div><strong>Reporter:</strong>&nbsp;<span>{{task.Reporter.FullName}}</span></div>
+            <div><strong>Responsible:</strong>&nbsp;<span>{{task.Responsible.FullName}}</span></div>
+        </div>
+        <div class="col-sm-12"><strong>Description:</strong><br /><span>{{task.Description}}</span></div>
+    </div>
+</div>
