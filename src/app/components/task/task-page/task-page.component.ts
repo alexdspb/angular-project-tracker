@@ -46,4 +46,12 @@ export class TaskPageComponent implements OnInit {
         }, () => {});
     }
 
+    deleteTask(task: Task) {
+        this.apiService.deleteTask(task).subscribe(id => {
+            if (id === task.Id) {
+                this.router.navigateByUrl('/');
+            }
+        });
+    }
+
 }

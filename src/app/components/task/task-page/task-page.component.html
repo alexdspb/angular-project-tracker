@@ -3,7 +3,13 @@
     <div id="task-actions" class="row">
         <button type="button" class="btn btn-sm btn-primary" (click)="showTaskModal()">New</button>
         <button type="button" class="btn btn-sm btn-success" (click)="showTaskModal(task)">Edit</button>
-        <button type="button" class="btn btn-sm btn-danger">Delete</button>
+        <ng-template #popTitle>Delete {{task.Name}}?</ng-template>
+        <ng-template #popContent>
+            <button class="btn btn-sm btn-success" style="margin-right: 3em;">No!</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteTask(task)">Delete.</button>
+        </ng-template>
+        <button type="button" class="btn btn-sm btn-danger" title="Delete this task!"
+                placement="right" [ngbPopover]="popContent" [popoverTitle]="popTitle">Delete</button>
     </div>
     <div id="task-info" class="row">
         <div class="col-sm-6">
