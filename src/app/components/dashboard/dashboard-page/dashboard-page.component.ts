@@ -45,7 +45,7 @@ export class DashboardPageComponent implements OnInit {
 
     ngOnInit() {
         for (let status of this.apiService.taskStatuses) {
-            this.tasksByStatuses[status.id] = [];
+            this.tasksByStatuses[status.Id] = [];
         }
 
         // get projects
@@ -102,9 +102,9 @@ export class DashboardPageComponent implements OnInit {
             Estimate: 0,
             StartDate: new Date().toISOString(),
             EndDate: new Date().toISOString(),
-            StatusId: this.apiService.taskStatuses[0].id,
+            StatusId: this.apiService.taskStatuses[0].Id,
             ResponsibleId: 4010,
-            TypeId: this.apiService.taskTypes[0].id,
+            TypeId: this.apiService.taskTypes[0].Id,
             ProjectId: this.project.Id,
             ReporterId: 4010,
         };

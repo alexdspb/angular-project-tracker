@@ -19,13 +19,13 @@
          *ngFor="let status of apiService.taskStatuses"
          class="status-item"
          (cdkDropListDropped)="onDrop($event)"
-         [cdkDropListData]="tasksByStatuses[status.id]"
-         [id]="status.id"
+         [cdkDropListData]="tasksByStatuses[status.Id]"
+         [id]="status.Id"
     >
-        <h3>{{status.name}} <span class="badge badge-secondary">{{tasksByStatuses[status.id]?.length}}</span></h3>
+        <h3>{{status.name}} <span class="badge badge-secondary">{{tasksByStatuses[status.Id]?.length}}</span></h3>
         <div class="tasks-list">
             <div cdkDrag
-                 *ngFor="let task of tasksByStatuses[status.id]"
+                 *ngFor="let task of tasksByStatuses[status.Id]"
                  [cdkDragData]="task"
                  class="task-item"
                  (dblclick)="showTaskModal(taskModal, task)"
@@ -70,7 +70,7 @@
                 <div>
                     <label for="select-type">Type: &nbsp;</label>
                     <select id="select-type" formControlName="TypeId">
-                        <option *ngFor="let type of apiService.taskTypes" value="{{type.id}}">{{type.name}}</option>
+                        <option *ngFor="let type of apiService.taskTypes" value="{{type.Id}}">{{type.Name}}</option>
                     </select>
                 </div>
             </form>

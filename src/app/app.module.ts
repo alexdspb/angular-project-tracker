@@ -22,6 +22,8 @@ import { DashboardPageComponent } from './components/dashboard/dashboard-page/da
 import { ProjectPageComponent } from './components/project/project-page/project-page.component';
 import { ProjectTeamComponent } from './components/project/project-team/project-team.component';
 import { ProjectModalComponent } from './components/project/project-modal/project-modal.component';
+import { TaskPageComponent } from './components/task/task-page/task-page.component';
+import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +40,8 @@ import { ProjectModalComponent } from './components/project/project-modal/projec
         ProjectPageComponent,
         ProjectTeamComponent,
         ProjectModalComponent,
+        TaskPageComponent,
+        TaskModalComponent,
     ],
     imports: [
         BrowserModule,

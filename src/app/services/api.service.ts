@@ -8,6 +8,8 @@ import {Timesheet} from '../models/Timesheet';
 import {Employee} from '../models/Employee';
 import {Position} from '../models/Position';
 import {Location} from '../models/Location';
+import {Status} from '../models/Status';
+import {TaskType} from '../models/TaskType';
 
 @Injectable({
     providedIn: 'root'
@@ -24,20 +26,20 @@ export class ApiService {
         })
     };
 
-    taskStatuses = [
-        {id: 1, name: 'Open', isActive: true},
-        {id: 2, name: 'Development', isActive: true},
-        {id: 3, name: 'Ready for QA', isActive: true},
-        {id: 4, name: 'Test', isActive: true},
-        {id: 5, name: 'Closed', isActive: false}
+    taskStatuses: Status[] = [
+        {Id: 1, Name: 'Open', IsActive: true},
+        {Id: 2, Name: 'Development', IsActive: true},
+        {Id: 3, Name: 'Ready for QA', IsActive: true},
+        {Id: 4, Name: 'Test', IsActive: true},
+        {Id: 5, Name: 'Closed', IsActive: false}
     ];
 
-    taskTypes = [
-        {id: 1, name: 'Technical task'},
-        {id: 2, name: 'Bug'},
-        {id: 3, name: 'Improvement'},
-        {id: 4, name: 'New Feature'},
-        {id: 5, name: 'Task'},
+    taskTypes: TaskType[] = [
+        {Id: 1, Name: 'Technical task'},
+        {Id: 2, Name: 'Bug'},
+        {Id: 3, Name: 'Improvement'},
+        {Id: 4, Name: 'New Feature'},
+        {Id: 5, Name: 'Task'},
     ];
 
     positions: Position[] = [
