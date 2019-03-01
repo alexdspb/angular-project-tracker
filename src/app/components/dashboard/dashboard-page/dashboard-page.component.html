@@ -22,7 +22,7 @@
          [cdkDropListData]="tasksByStatuses[status.Id]"
          [id]="status.Id"
     >
-        <h3>{{status.name}} <span class="badge badge-secondary">{{tasksByStatuses[status.Id]?.length}}</span></h3>
+        <h3>{{status.Name}} <span class="badge badge-secondary">{{tasksByStatuses[status.Id]?.length}}</span></h3>
         <div class="tasks-list">
             <div cdkDrag
                  *ngFor="let task of tasksByStatuses[status.Id]"
