@@ -1,0 +1,51 @@
+
+<h1>{{user.FullName}}<span *ngIf="user.Id === currentUser?.Id">&nbsp;<span class="badge badge-secondary">You</span></span></h1>
+<div id="user-wrapper" class="row" *ngIf="user">
+    <div id="user-image" class="col-sm-2 offset-sm-1">
+        <img [src]="user.ImageUrl" alt="{{user.FullName}}" class="rounded float-left">
+    </div>
+    <div id="user-info" class="col-sm-4">
+        <div>
+            <div><strong>Birthday:</strong>&nbsp;<span>{{user.Birthday|date:'longDate'}}</span></div>
+            <div><strong>Email:</strong>&nbsp;<span><a href="mailto:{{user.Email}}">{{user.Email}}</a></span></div>
+            <div><strong>Location:</strong>&nbsp;<span>{{user.Location.Name}}</span></div>
+            <div><strong>Address:</strong>&nbsp;<span>{{user.Address}}</span></div>
+            <div><strong>Skype:</strong>&nbsp;<span><a href="skype:{{user.Skype}}">{{user.Skype}}</a></span></div>
+            <div><strong>Phone:</strong>&nbsp;<span>{{user.Phone}}</span></div>
+            <div><strong>First:</strong>&nbsp;<span>{{user.First}}</span></div>
+            <div><strong>Last:</strong>&nbsp;<span>{{user.Last}}</span></div>
+        </div>
+    </div>
+    <div id="user-skills" class="col-sm-3">
+        <table *ngIf="skills">
+            <tbody>
+                <tr *ngFor="let skill of skills">
+                    <th>{{skill.Name}}</th>
+                    <td>{{skill.LevelName}}</td>
+                    <td><button class="btn btn-sm btn-light" (click)="showSkillModal(skillModal)">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <br>
+            <button class="btn btn-sm btn-primary" (click)="showSkillModal(skillModal)">Add skill</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #skillModal let-modal>
+    <div id="skill-modal">
+        <div class="modal-header">
+            <h4 class="modal-title" id="skill-modal-title">Skill</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close()">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        </div>
+    </div>
+</ng-template>

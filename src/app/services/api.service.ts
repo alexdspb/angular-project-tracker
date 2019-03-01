@@ -86,10 +86,24 @@ export class ApiService {
 
     /* Employees */
 
+    // Get Employee
+    getEmployee(id: number): Observable<Employee> {
+        const url = `${this.apiUrl}/api/employees/${id}`;
+        return this.http.get<Employee>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
     // Get Employees
     getEmployees(): Observable<Employee[]> {
         const url = `${this.apiUrl}/api/employees`;
         return this.http.get<Employee[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Get Employee Skills
+    getEmployeeSkills(id: number): Observable<any> {
+        const url = `${this.apiUrl}/api/skills/${id}`;
+        return this.http.get<any>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
