@@ -1,8 +1,8 @@
 <div id="task-wrapper" *ngIf="task">
     <h1>Task {{task.Name}}</h1>
     <div id="task-actions" class="row">
-        <button type="button" class="btn btn-sm btn-primary">New</button>
-        <button type="button" class="btn btn-sm btn-success">Edit</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="showTaskModal()">New</button>
+        <button type="button" class="btn btn-sm btn-success" (click)="showTaskModal(task)">Edit</button>
         <button type="button" class="btn btn-sm btn-danger">Delete</button>
     </div>
     <div id="task-info" class="row">

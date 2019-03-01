@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {ApiService} from '../../../services/api.service';
 import {Task} from '../../../models/Task';
 import {Project} from '../../../models/Project';
+import {TaskModalComponent} from '../task-modal/task-modal.component';
 
 @Component({
     selector: 'app-task-page',
@@ -18,6 +20,7 @@ export class TaskPageComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private apiService: ApiService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -30,6 +33,17 @@ export class TaskPageComponent implements OnInit {
                  this.apiService.getProjectById(task.ProjectId).subscribe(project => this.project = project);
              });
         }
+    }
+
+    showTaskModal(task) {
+        // open modal
+        const modalRef = this.modalService.open(TaskModalComponent, {size: 'lg'});
+        // pass properties to component
+        modalRef.componentInstance.task = task ? task : new Task();
+        // deal with result
+        modalRef.result.then(task => {
+            this.task = task;
+        }, () => {});
     }
 
 }

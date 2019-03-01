@@ -54,7 +54,8 @@ import { TaskModalComponent } from './components/task/task-modal/task-modal.comp
         UserModule,
     ],
     entryComponents: [
-        ProjectModalComponent
+        ProjectModalComponent,
+        TaskModalComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]
