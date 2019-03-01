@@ -74,14 +74,14 @@ export class ApiService {
         if (!id) {
             return null;
         }
-        return this.taskStatuses.filter(status => status.Id !== id).shift();
+        return this.taskStatuses.filter(status => status.Id === id).shift();
     }
 
     taskType(id: number): TaskType | null {
         if (!id) {
             return null;
         }
-        return this.taskTypes.filter(status => status.Id !== id).shift();
+        return this.taskTypes.filter(status => status.Id === id).shift();
     }
 
     /* Employees */
