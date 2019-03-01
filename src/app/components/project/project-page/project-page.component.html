@@ -1,12 +1,15 @@
 
 <div id="project-wrapper" *ngIf="project">
     <h1>{{project?.Name}}</h1>
-    <p>
-        <br />
-        <button type="button" class="btn btn-sm btn-outline-primary" (click)="router.navigateByUrl('/dashboard?projectId=' + project.Id)">View Dashboard</button>&nbsp;
-        <button type="button" class="btn btn-sm btn-outline-primary" (click)="showProjectModal()">Edit Project</button>
-    </p>
-    <div id="project-info">
+    <div id="project-image" class="col-sm-3">
+        <img [src]="project.ImageUrl" alt="{{project.Name}}" class="rounded float-left">
+    </div>
+    <div id="project-info" class="col-sm-9">
+        <p>
+            <br />
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="router.navigateByUrl('/dashboard?projectId=' + project.Id)">View Dashboard</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="showProjectModal()">Edit Project</button>
+        </p>
         <div><strong>Customer:</strong>&nbsp;<span>{{project?.CustomerName}}</span></div>
         <div><strong>Start date:</strong>&nbsp;<span>{{project?.StartDate|date:'longDate'}}</span></div>
         <div><strong>End date:</strong>&nbsp;<span>{{project?.EndDate|date:'longDate'}}</span></div>
