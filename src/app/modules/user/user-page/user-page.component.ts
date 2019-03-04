@@ -9,6 +9,7 @@ import {ApiService} from '../../../services/api.service';
 import {AuthService} from '../auth.service';
 import {SkillModalComponent} from '../skill-modal/skill-modal.component';
 import {EmployeeSkill} from '../../../models/EmployeeSkill';
+import {UserModalComponent} from '@modules/user/user-modal/user-modal.component';
 
 @Component({
     selector: 'app-user-page',
@@ -38,12 +39,22 @@ export class UserPageComponent implements OnInit {
 
                 // sanitize, then bypass link
                 this.skypeLink = this.sanitizer.sanitize(SecurityContext.URL, this.user.Skype);
-                this.skypeLink = this.sanitizer.bypassSecurityTrustUrl(`skype:${this.skypeLink}`);
 
                 this.currentUser = this.authService.currentUser;
                 this.apiService.getEmployeeSkills(id).subscribe(skills => this.skills = skills);
             });
         }
+    }
+
+    showUserModal(user: Employee) {
+        // open modal
+        const modalRef = this.modalService.open(UserModalComponent);
+        // pass properties to component
+        modalRef.componentInstance.user = user;
+        // deal with result
+        modalRef.result.then(result => {
+            console.log(result);
+        }, () => {});
     }
 
     showSkillModal(skill: Skill = new Skill()) {

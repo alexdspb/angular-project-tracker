@@ -111,6 +111,27 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Post Employee
+    postEmployee(employee: Employee): Observable<Employee> {
+        const url = `${this.apiUrl}/api/employees`;
+        return this.http.post<Employee>(url, employee, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
+    }
+
+    // Put Employee
+    putEmployee(employee: Employee): Observable<Employee> {
+        const url = `${this.apiUrl}/api/employees`;
+        return this.http.put<Employee>(url, employee, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
+    // Delete Employee
+    deleteEmployee(employee: Employee): Observable<number> {
+        const url = `${this.apiUrl}/api/employees/${employee.Id}`;
+        return this.http.delete<number>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
+    }
+
     /* Skills */
 
     // Get all Skills

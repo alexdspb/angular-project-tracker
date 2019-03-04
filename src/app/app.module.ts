@@ -57,7 +57,6 @@ import {SkillModalComponent} from './modules/user/skill-modal/skill-modal.compon
     entryComponents: [
         ProjectModalComponent,
         TaskModalComponent,
-        SkillModalComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -7,13 +7,15 @@ import {LoginLinksComponent} from './login-links/login-links.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { SkillModalComponent } from './skill-modal/skill-modal.component';
+import { UserModalComponent } from './user-modal/user-modal.component';
 
 @NgModule({
     declarations: [
         LoginLinksComponent,
         LoginModalComponent,
         UserPageComponent,
-        SkillModalComponent
+        SkillModalComponent,
+        UserModalComponent
     ],
     imports: [
         CommonModule,
@@ -24,7 +26,9 @@ import { SkillModalComponent } from './skill-modal/skill-modal.component';
         LoginLinksComponent,
     ],
     entryComponents: [
-        LoginModalComponent
+        LoginModalComponent,
+        SkillModalComponent,
+        UserModalComponent,
     ],
 })
 export class UserModule {

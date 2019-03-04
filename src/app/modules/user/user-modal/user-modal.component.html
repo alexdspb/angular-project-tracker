@@ -1,0 +1,119 @@
+<div id="user-modal">
+    <div class="modal-header">
+        <h4 class="modal-title" id="user-modal-title">User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="userForm">
+            <input type="hidden" formControlName="Id">
+
+            <div class="form-group">
+                <label for="edit-first" class="col-sm-2 col-form-label">First: &nbsp;</label>
+                <div class="col-sm-10">
+                    <input id="edit-first" class="form-control form-control-sm" type="text" placeholder="First"
+                           formControlName="First" [ngClass]="{ 'is-invalid': submitted && f.First.errors }">
+                    <div *ngIf="submitted && f.First.errors" class="invalid-feedback">
+                        <div *ngIf="f.First.errors.required">First is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-last" class="col-sm-2 col-form-label">Last: &nbsp;</label>
+                <div class="col-sm-10">
+                    <input id="edit-last" class="form-control form-control-sm" type="text" placeholder="Last"
+                           formControlName="Last" [ngClass]="{ 'is-invalid': submitted && f.Last.errors }">
+                    <div *ngIf="submitted && f.Last.errors" class="invalid-feedback">
+                        <div *ngIf="f.Last.errors.required">Last is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-birthday" class="col-sm-2 col-form-label">Birthday: &nbsp;</label>
+                <div class="col-sm-4">
+                    <input id="edit-birthday" class="form-control form-control-sm" placeholder="Birthday"
+                           [ngClass]="{ 'is-invalid': submitted && f.Birthday.errors }"
+                           formControlName="Birthday" ngbDatepicker #birthdayPicker="ngbDatepicker"
+                           (click)="birthdayPicker.toggle()">
+                    <div *ngIf="submitted && f.Birthday.errors" class="invalid-feedback">
+                        <div *ngIf="f.Birthday.errors.required">Birthday is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-email" class="col-sm-2 col-form-label">Email: &nbsp;</label>
+                <div class="col-sm-10">
+                    <input id="edit-email" class="form-control form-control-sm" type="text" placeholder="Email"
+                           formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                    <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                        <div *ngIf="f.Email.errors.required">Email is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-location" class="col-sm-2 col-form-label">Location: &nbsp;</label>
+                <div class="col-sm-4">
+                    <select id="select-location" class="form-control form-control-sm"
+                            formControlName="LocationId" [ngClass]="{ 'is-invalid': submitted && f.LocationId.errors }">
+                        <option value="{{location.Id}}" *ngFor="let location of apiService.locations">{{location.Name}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.LocationId.errors" class="invalid-feedback">
+                        <div *ngIf="f.LocationId.errors.required">Location is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-address" class="col-sm-2 col-form-label">Address: &nbsp;</label>
+                <div class="col-sm-10">
+                    <textarea id="edit-address" class="form-control form-control-sm" rows="3" placeholder="Address"
+                              formControlName="Address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
+                    <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                        <div *ngIf="f.Address.errors.required">Address is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-skype" class="col-sm-2 col-form-label">Skype: &nbsp;</label>
+                <div class="col-sm-10">
+                    <input id="edit-skype" class="form-control form-control-sm" type="text" placeholder="Skype"
+                           formControlName="Skype" [ngClass]="{ 'is-invalid': submitted && f.Skype.errors }">
+                    <div *ngIf="submitted && f.Skype.errors" class="invalid-feedback">
+                        <div *ngIf="f.Skype.errors.required">Skype is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-phone" class="col-sm-2 col-form-label">Phone: &nbsp;</label>
+                <div class="col-sm-10">
+                    <input id="edit-phone" class="form-control form-control-sm" type="text" placeholder="Phone"
+                           formControlName="Phone" [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                    <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                        <div *ngIf="f.Phone.errors.required">Phone is required</div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <div class="col-sm-12" *ngIf="submitted && error">
+            <ngb-alert [type]="'danger'" [dismissible]="false">{{error?.Message}}{{error?.message}}</ngb-alert>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onSave(userForm.value)">
+            <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>&nbsp;</span>
+            </span>
+            <span>Save</span>
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+    </div>
+</div>
