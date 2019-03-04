@@ -110,9 +110,11 @@ export class DashboardPageComponent implements OnInit {
             EndDate: new Date().toISOString(),
             StatusId: this.apiService.taskStatuses[0].Id,
             ResponsibleId: 4010,
+            Responsible: null,
             TypeId: this.apiService.taskTypes[0].Id,
             ProjectId: this.project.Id,
             ReporterId: 4010,
+            Reporter: null,
         };
         // set values from task to controls
         const controls = (
