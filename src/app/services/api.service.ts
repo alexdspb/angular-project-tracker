@@ -10,6 +10,7 @@ import {Position} from '../models/Position';
 import {Location} from '../models/Location';
 import {Status} from '../models/Status';
 import {TaskType} from '../models/TaskType';
+import {EmployeeProject} from '../models/EmployeeProject';
 
 @Injectable({
     providedIn: 'root'
@@ -116,11 +117,11 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
-    deleteMemberFromTeam(memberId: number, projectId: number): Observable<object> {
+    deleteMemberFromTeam(memberId: number, projectId: number): Observable<EmployeeProject> {
         const url = `${this.apiUrl}/api/team`;
         const params = {EmployeeId: memberId, ProjectId: projectId};
         const httpOptions = Object.assign({...this.httpOptions}, {params});
-        return this.http.delete<object>(url, httpOptions)
+        return this.http.delete<EmployeeProject>(url, httpOptions)
             .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
 
