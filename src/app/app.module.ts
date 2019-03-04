@@ -24,6 +24,7 @@ import { ProjectTeamComponent } from './components/project/project-team/project-
 import { ProjectModalComponent } from './components/project/project-modal/project-modal.component';
 import { TaskPageComponent } from './components/task/task-page/task-page.component';
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
+import {SkillModalComponent} from './modules/user/skill-modal/skill-modal.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { TaskModalComponent } from './components/task/task-modal/task-modal.comp
     entryComponents: [
         ProjectModalComponent,
         TaskModalComponent,
+        SkillModalComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]
