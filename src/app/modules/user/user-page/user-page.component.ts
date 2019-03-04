@@ -8,6 +8,7 @@ import {Skill} from '../../../models/Skill';
 import {ApiService} from '../../../services/api.service';
 import {AuthService} from '../auth.service';
 import {SkillModalComponent} from '../skill-modal/skill-modal.component';
+import {EmployeeSkill} from '../../../models/EmployeeSkill';
 
 @Component({
     selector: 'app-user-page',
@@ -45,16 +46,34 @@ export class UserPageComponent implements OnInit {
         }
     }
 
-    showSkillModal(skill) {
+    showSkillModal(skill: Skill = new Skill()) {
         // open modal
         const modalRef = this.modalService.open(SkillModalComponent);
         // pass properties to component
-        modalRef.componentInstance.skill = skill ? skill : new Skill();
+        modalRef.componentInstance.skill = skill;
         modalRef.componentInstance.employee = this.user;
         // deal with result
-        modalRef.result.then(skill => {
-            // todo: update skills in UI
+        modalRef.result.then(employeeSkill => {
+            this.saveEmployeeSkill(employeeSkill);
         }, () => {});
+    }
+
+    saveEmployeeSkill(employeeSkill: EmployeeSkill) {
+        // try to find existing skill
+        const existing = this.skills.filter(item => (item.Id === employeeSkill.SkillId));
+        if (existing.length) {
+            // update existing skill
+            this.apiService.putSkill(employeeSkill).subscribe(skill => {
+                // update skills in UI
+                this.apiService.getEmployeeSkills(this.user.Id).subscribe(skills => this.skills = skills);
+            });
+        } else {
+            // create new skill
+            this.apiService.postSkill(employeeSkill).subscribe(skill => {
+                // add new skill in UI
+                this.skills.push(skill);
+            });
+        }
     }
 
 }

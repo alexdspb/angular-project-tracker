@@ -5,6 +5,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../../../services/api.service';
 import {Skill} from '../../../models/Skill';
 import {Employee} from '../../../models/Employee';
+import {SkillLevel} from '../../../models/SkillLevel';
+import {EmployeeSkill} from '../../../models/EmployeeSkill';
 
 @Component({
     selector: 'app-skill-modal',
@@ -13,12 +15,14 @@ import {Employee} from '../../../models/Employee';
 })
 export class SkillModalComponent implements OnInit {
     skill: Skill;
+    skills: Skill[];
+    skillLevels: SkillLevel[];
     employee: Employee;
     // modal form
     skillForm = new FormGroup({
-        EmployeeId: new FormControl('', [Validators.required]),
-        SkillId: new FormControl('', [Validators.required]),
-        LevelId: new FormControl('', [Validators.required]),
+        EmployeeId: new FormControl('', [Validators.required, Validators.min(1)]),
+        SkillId: new FormControl('', [Validators.required, Validators.min(1)]),
+        LevelId: new FormControl('', [Validators.required, Validators.min(1)]),
     });
     loading = false;
     submitted = false;
@@ -31,14 +35,20 @@ export class SkillModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.skill);
-        // reformat skill to form values
-        const controls = {
-            SkillId: this.skill.Id,
-            LevelId: this.skill.LevelId,
-            EmployeeId: this.skill.LevelId,
-        };
-        this.skillForm.setValue(controls);
+        this.apiService.getSkills().subscribe(skills => {
+            this.skills = skills;
+
+            // Get Levels
+            this.skillLevels = this.apiService.getSkillLevels();
+
+            // reformat skill to form values
+            const controls = {
+                SkillId: this.skill.Id,
+                LevelId: this.skill.LevelId,
+                EmployeeId: this.employee.Id,
+            };
+            this.skillForm.setValue(controls);
+        });
     }
 
     // convenience getter for easy access to form fields
@@ -47,7 +57,6 @@ export class SkillModalComponent implements OnInit {
     }
 
     onSave(form) {
-        console.log(form);
         this.submitted = true;
 
         if (this.skillForm.invalid) {
@@ -55,9 +64,10 @@ export class SkillModalComponent implements OnInit {
         }
 
         this.loading = true;
-        // todo: save or create skill
-        setTimeout(() => {
-            this.activeModal.close();
-        }, 1000);
+        // create skill from form values (as numbers)
+        const {SkillId, LevelId, EmployeeId} = this.skillForm.value;
+        const employeeSkill: EmployeeSkill = {SkillId: +SkillId, LevelId: +LevelId, EmployeeId: +EmployeeId};
+        // close modal and pass skill to parent component
+        this.activeModal.close(employeeSkill);
     }
 }

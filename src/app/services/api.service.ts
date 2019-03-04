@@ -12,6 +12,8 @@ import {Status} from '../models/Status';
 import {TaskType} from '../models/TaskType';
 import {EmployeeProject} from '../models/EmployeeProject';
 import {Skill} from '../models/Skill';
+import {SkillLevel} from '../models/SkillLevel';
+import {EmployeeSkill} from '../models/EmployeeSkill';
 
 @Injectable({
     providedIn: 'root'
@@ -69,6 +71,13 @@ export class ApiService {
         {Id: 16, Name: 'Wroclaw'},
     ];
 
+    skillLevels: SkillLevel[] = [
+        {Id: 1, Name: 'Trainee'},
+        {Id: 2, Name: 'Junior'},
+        {Id: 3, Name: 'Middle'},
+        {Id: 4, Name: 'Senior'},
+    ];
+
     constructor(private http: HttpClient) {
     }
 
@@ -111,6 +120,10 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    getSkillLevels(): SkillLevel[] {
+        return this.skillLevels;
+    }
+
     // Get Employee Skills
     getEmployeeSkills(id: number): Observable<Skill[]> {
         const url = `${this.apiUrl}/api/skills/${id}`;
@@ -119,16 +132,16 @@ export class ApiService {
     }
 
     // Post Skill
-    postSkill(skill: Skill): Observable<Skill> {
+    postSkill(employeeSkill: EmployeeSkill): Observable<Skill> {
         const url = `${this.apiUrl}/api/skills`;
-        return this.http.post<Skill>(url, skill, this.httpOptions)
+        return this.http.post<Skill>(url, employeeSkill, this.httpOptions)
             .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
     }
 
     // Put Skill
-    putSkill(skill: Skill): Observable<Skill> {
+    putSkill(employeeSkill: EmployeeSkill): Observable<Skill> {
         const url = `${this.apiUrl}/api/skills`;
-        return this.http.put<Skill>(url, skill, this.httpOptions)
+        return this.http.put<Skill>(url, employeeSkill, this.httpOptions)
             .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
     }
 

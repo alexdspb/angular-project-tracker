@@ -10,23 +10,27 @@
             <input type="hidden" formControlName="EmployeeId">
 
             <div class="form-group">
-                <label for="edit-skill-id" class="col-sm-2 col-form-label">Skill: &nbsp;</label>
+                <label for="select-skill" class="col-sm-2 col-form-label">Skill: &nbsp;</label>
                 <div class="col-sm-10">
-                    <input id="edit-skill-id" class="form-control form-control-sm" type="number" placeholder="Skill"
-                           formControlName="SkillId" [ngClass]="{ 'is-invalid': submitted && f.SkillId.errors }">
+                    <select id="select-skill" class="form-control form-control-sm"
+                            formControlName="SkillId" [ngClass]="{ 'is-invalid': submitted && f.SkillId.errors }">
+                        <option value="{{skillsItem.Id}}" *ngFor="let skillsItem of skills" [selected]="skillsItem.Id === skill.Id">{{skillsItem.Name}}</option>
+                    </select>
                     <div *ngIf="submitted && f.SkillId.errors" class="invalid-feedback">
-                        <div *ngIf="f.SkillId.errors.required">Skill is required</div>
+                        <div *ngIf="f.SkillId.errors.required || f.SkillId.errors.min">Skill is required</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="edit-level-id" class="col-sm-2 col-form-label">Level: &nbsp;</label>
+                <label for="select-level" class="col-sm-2 col-form-label">Level: &nbsp;</label>
                 <div class="col-sm-10">
-                    <input id="edit-level-id" class="form-control form-control-sm" type="number" placeholder="Level"
-                           formControlName="LevelId" [ngClass]="{ 'is-invalid': submitted && f.LevelId.errors }">
+                    <select id="select-level" class="form-control form-control-sm"
+                            formControlName="LevelId" [ngClass]="{ 'is-invalid': submitted && f.LevelId.errors }">
+                        <option value="{{level.Id}}" *ngFor="let level of skillLevels" [selected]="level.Id === skill.LevelId">{{level.Name}}</option>
+                    </select>
                     <div *ngIf="submitted && f.LevelId.errors" class="invalid-feedback">
-                        <div *ngIf="f.LevelId.errors.required">Level is required</div>
+                        <div *ngIf="f.LevelId.errors.required || f.LevelId.errors.min">Level is required</div>
                     </div>
                 </div>
             </div>
