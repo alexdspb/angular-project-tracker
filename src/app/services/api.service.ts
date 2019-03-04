@@ -11,6 +11,7 @@ import {Location} from '../models/Location';
 import {Status} from '../models/Status';
 import {TaskType} from '../models/TaskType';
 import {EmployeeProject} from '../models/EmployeeProject';
+import {Skill} from '../models/Skill';
 
 @Injectable({
     providedIn: 'root'
@@ -101,11 +102,43 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
-    // Get Employee Skills
-    getEmployeeSkills(id: number): Observable<any> {
-        const url = `${this.apiUrl}/api/skills/${id}`;
-        return this.http.get<any>(url, this.httpOptions)
+    /* Skills */
+
+    // Get all Skills
+    getSkills(): Observable<Skill[]> {
+        const url = `${this.apiUrl}/api/skills`;
+        return this.http.get<Skill[]>(url, this.httpOptions)
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Get Employee Skills
+    getEmployeeSkills(id: number): Observable<Skill[]> {
+        const url = `${this.apiUrl}/api/skills/${id}`;
+        return this.http.get<Skill[]>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
+    // Post Skill
+    postSkill(skill: Skill): Observable<Skill> {
+        const url = `${this.apiUrl}/api/skills`;
+        return this.http.post<Skill>(url, skill, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`POST ${url}`, response)));
+    }
+
+    // Put Skill
+    putSkill(skill: Skill): Observable<Skill> {
+        const url = `${this.apiUrl}/api/skills`;
+        return this.http.put<Skill>(url, skill, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`PUT ${url}`, response)));
+    }
+
+    // Delete Skill
+    deleteSkill(skillId: number, employeeId: number): Observable<any> {
+        const url = `${this.apiUrl}/api/skills`;
+        const params = {id: skillId, empId: employeeId};
+        const httpOptions = {...this.httpOptions, params};
+        return this.http.delete<any>(url, this.httpOptions)
+            .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
 
     /* Team */
