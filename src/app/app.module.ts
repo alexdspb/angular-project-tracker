@@ -26,6 +26,7 @@ import { TaskPageComponent } from './components/task/task-page/task-page.compone
 import { TaskModalComponent } from './components/task/task-modal/task-modal.component';
 import {SkillModalComponent} from './modules/user/skill-modal/skill-modal.component';
 import { AdminIndexPageComponent } from './components/admin/admin-index-page/admin-index-page.component';
+import { AdminSectionPageComponent } from './components/admin/admin-section-page/admin-section-page.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { AdminIndexPageComponent } from './components/admin/admin-index-page/adm
         TaskPageComponent,
         TaskModalComponent,
         AdminIndexPageComponent,
+        AdminSectionPageComponent,
     ],
     imports: [
         BrowserModule,

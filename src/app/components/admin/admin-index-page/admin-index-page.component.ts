@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 // Font Awesome
 import {faUsers, faProjectDiagram} from '@fortawesome/free-solid-svg-icons';
@@ -14,10 +15,16 @@ export class AdminIndexPageComponent implements OnInit {
     faUsers = faUsers;
     faProjectDiagram = faProjectDiagram;
 
-    constructor() {
+    constructor(
+        private router: Router,
+    ) {
     }
 
     ngOnInit() {
+    }
+
+    followSection(section: string) {
+        this.router.navigate([`/admin/${section}`]);
     }
 
 }

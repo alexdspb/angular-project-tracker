@@ -6,6 +6,7 @@ import { ProjectPageComponent } from './components/project/project-page/project-
 import {TaskPageComponent} from './components/task/task-page/task-page.component';
 import {UserPageComponent} from './modules/user/user-page/user-page.component';
 import {AdminIndexPageComponent} from '@components/admin/admin-index-page/admin-index-page.component';
+import {AdminSectionPageComponent} from '@components/admin/admin-section-page/admin-section-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'tasks/:id', component: TaskPageComponent},
   {path: 'users/:id', component: UserPageComponent},
   {path: 'admin', component: AdminIndexPageComponent},
+  {path: 'admin/:section', component: AdminSectionPageComponent},
 ];
 
 @NgModule({
