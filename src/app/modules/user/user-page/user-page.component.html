@@ -8,7 +8,7 @@
         <div>
             <div><strong>Birthday:</strong>&nbsp;<span>{{user.Birthday|date:'longDate'}}</span></div>
             <div><strong>Email:</strong>&nbsp;<span><a href="mailto:{{user.Email}}">{{user.Email}}</a></span></div>
-            <div><strong>Location:</strong>&nbsp;<span>{{user.Location.Name}}</span></div>
+            <div><strong>Location:</strong>&nbsp;<span>{{apiService.location(user.LocationId).Name}}</span></div>
             <div><strong>Address:</strong>&nbsp;<span>{{user.Address}}</span></div>
             <div><strong>Skype:</strong>&nbsp;<span><a [href]="skypeLink">{{user.Skype}}</a></span></div>
             <div><strong>Phone:</strong>&nbsp;<span>{{user.Phone}}</span></div>

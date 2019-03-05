@@ -53,7 +53,9 @@ export class UserPageComponent implements OnInit {
         modalRef.componentInstance.user = user;
         // deal with result
         modalRef.result.then(result => {
-            console.log(result);
+            if (typeof result === 'object') {
+                this.user = result as Employee;
+            }
         }, () => {});
     }
 

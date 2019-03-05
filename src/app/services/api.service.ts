@@ -92,7 +92,14 @@ export class ApiService {
         if (!id) {
             return null;
         }
-        return this.taskTypes.filter(status => status.Id === id).shift();
+        return this.taskTypes.filter(taskType => taskType.Id === id).shift();
+    }
+
+    location(id: number) {
+        if (!id) {
+            return null;
+        }
+        return this.locations.filter(location => location.Id === id).shift();
     }
 
     /* Employees */
