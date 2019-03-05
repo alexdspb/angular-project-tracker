@@ -5,6 +5,7 @@ import { DashboardPageComponent } from './components/dashboard/dashboard-page/da
 import { ProjectPageComponent } from './components/project/project-page/project-page.component';
 import {TaskPageComponent} from './components/task/task-page/task-page.component';
 import {UserPageComponent} from './modules/user/user-page/user-page.component';
+import {AdminIndexPageComponent} from '@components/admin/admin-index-page/admin-index-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'projects/:id', component: ProjectPageComponent},
   {path: 'tasks/:id', component: TaskPageComponent},
   {path: 'users/:id', component: UserPageComponent},
+  {path: 'admin', component: AdminIndexPageComponent},
 ];
 
 @NgModule({
