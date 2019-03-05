@@ -14,22 +14,46 @@
             <div><strong>Phone:</strong>&nbsp;<span>{{user.Phone}}</span></div>
             <div><strong>First:</strong>&nbsp;<span>{{user.First}}</span></div>
             <div><strong>Last:</strong>&nbsp;<span>{{user.Last}}</span></div>
-            <button type="button" class="btn btn-sm btn-primary" (click)="showUserModal(user)">Edit</button>
+            <div style="margin-top: 1rem;">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="showUserModal(user)">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                    &nbsp;<span>Edit</span>
+                </button>
+            </div>
         </div>
     </div>
-    <div id="user-skills" class="col-sm-3">
+    <div id="user-skills" class="col-sm-4">
         <table *ngIf="skills">
             <tbody>
                 <tr *ngFor="let skill of skills">
                     <th>{{skill.Name}}</th>
                     <td>{{skill.LevelName}}</td>
-                    <td><button class="btn btn-sm btn-light" (click)="showSkillModal(skill)">Edit</button></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" (click)="showSkillModal(skill)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                            &nbsp;<span>Edit</span>
+                        </button>
+
+                        <ng-template #popTitle>Delete {{skill.Name}} {{skill.LevelName}}?</ng-template>
+                        <ng-template #popContent>
+                            <button class="btn btn-sm btn-success" style="margin-right: 3em;">Don't!</button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteSkill(skill)">Delete.</button>
+                        </ng-template>
+                        <button type="button" class="btn btn-sm btn-outline-danger delete-button" title="Delete this skill!"
+                                placement="left" [ngbPopover]="popContent" [popoverTitle]="popTitle">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                            &nbsp;<span>Delete</span>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <div>
             <br>
-            <button class="btn btn-sm btn-primary" (click)="showSkillModal()">Add skill</button>
+            <button class="btn btn-sm btn-outline-primary" (click)="showSkillModal()">
+                <fa-icon [icon]="faPlus"></fa-icon>
+                &nbsp;<span>Add skill</span>
+            </button>
         </div>
     </div>
 </div>

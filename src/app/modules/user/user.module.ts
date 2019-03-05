@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {LoginLinksComponent} from './login-links/login-links.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
@@ -21,6 +22,7 @@ import { UserModalComponent } from './user-modal/user-modal.component';
         CommonModule,
         ReactiveFormsModule,
         NgbModule,
+        FontAwesomeModule,
     ],
     exports: [
         LoginLinksComponent,

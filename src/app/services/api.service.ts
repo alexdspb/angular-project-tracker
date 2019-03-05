@@ -174,11 +174,13 @@ export class ApiService {
     }
 
     // Delete Skill
-    deleteSkill(skillId: number, employeeId: number): Observable<any> {
+    deleteSkill(skillId: number, employeeId: number): Observable<number> {
         const url = `${this.apiUrl}/api/skills`;
-        const params = {id: skillId, empId: employeeId};
+        const params = new HttpParams()
+            .set('id', `${skillId}`)
+            .set('empId', `${employeeId}`);
         const httpOptions = {...this.httpOptions, params};
-        return this.http.delete<any>(url, this.httpOptions)
+        return this.http.delete<number>(url, httpOptions)
             .pipe(tap(response => this.logRequest(`DELETE ${url}`, response)));
     }
 

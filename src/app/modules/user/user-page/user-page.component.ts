@@ -11,6 +11,9 @@ import {SkillModalComponent} from '../skill-modal/skill-modal.component';
 import {EmployeeSkill} from '../../../models/EmployeeSkill';
 import {UserModalComponent} from '@modules/user/user-modal/user-modal.component';
 
+// Font Awesome
+import {faPlus, faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+
 @Component({
     selector: 'app-user-page',
     templateUrl: './user-page.component.html',
@@ -21,6 +24,11 @@ export class UserPageComponent implements OnInit {
     user: Employee;
     skypeLink: SafeUrl;
     skills: Skill[];
+
+    // Font Awesome
+    faPlus = faPlus;
+    faEdit = faEdit;
+    faTrashAlt = faTrashAlt;
 
     constructor(
         private route: ActivatedRoute,
@@ -88,6 +96,14 @@ export class UserPageComponent implements OnInit {
                 this.skills.push(skill);
             });
         }
+    }
+
+    deleteSkill(skill: Skill) {
+        this.apiService.deleteSkill(skill.Id, this.user.Id).subscribe(deletedId => {
+            if (deletedId) {
+                this.skills = this.skills.filter(item => item.Id !== deletedId);
+            }
+        });
     }
 
 }
