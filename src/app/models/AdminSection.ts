@@ -1,5 +1,3 @@
-import {Employee} from '@models/Employee';
-import {Project} from '@models/Project';
 import {Observable} from 'rxjs';
 
 export class AdminSectionButton {
@@ -20,4 +18,6 @@ export class AdminSection {
     addButton: AdminSectionButton;
     subscriber: Observable<any[]>;
     columns: AdminSectionDatasetColumn[];
+    modalComponent;
+    modalComponentProp;
 }

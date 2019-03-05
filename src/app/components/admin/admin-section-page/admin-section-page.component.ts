@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AdminSection} from '@models/AdminSection';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from '@angular/forms';
-import {Subscriber} from 'rxjs';
+
 import {ApiService} from '@services/api.service';
+import {AdminSection} from '@models/AdminSection';
+import {UserModalComponent} from '@modules/user/user-modal/user-modal.component';
+import {ProjectModalComponent} from '@components/project/project-modal/project-modal.component';
 
 // Font Awesome
 import {faPencilAlt, faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +37,8 @@ export class AdminSectionPageComponent implements OnInit {
                 {type: 'string', name: 'Skype', title: 'Skype'},
                 {type: 'string', name: 'Phone', title: 'Phone'},
             ],
+            modalComponent: UserModalComponent,
+            modalComponentProp: 'user',
         },
         {
             name: 'projects',
@@ -50,6 +55,8 @@ export class AdminSectionPageComponent implements OnInit {
                 {type: 'date', name: 'StartDate', title: 'Start Date'},
                 {type: 'string', name: 'Description', title: 'Description'},
             ],
+            modalComponent: ProjectModalComponent,
+            modalComponentProp: 'project',
         },
     ];
 
@@ -60,6 +67,7 @@ export class AdminSectionPageComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private apiService: ApiService,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -78,8 +86,21 @@ export class AdminSectionPageComponent implements OnInit {
 
         this.section.subscriber.subscribe(data => {
             this.dataset = data;
-            console.log(data);
         });
+    }
+
+    showEditModal(row) {
+        // open modal
+        const modalRef = this.modalService.open(this.section.modalComponent);
+        // pass properties to component
+        modalRef.componentInstance[this.section.modalComponentProp] = row;
+        // deal with result
+        modalRef.result.then(result => {
+            // update result in UI
+            this.dataset = this.dataset.map((item, index, origin) => {
+                return (item.Id === result.Id) ? result : item;
+            });
+        }, () => {});
     }
 
     onFilterKeyUp = () => {

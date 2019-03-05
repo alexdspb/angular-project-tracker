@@ -25,7 +25,7 @@
                     <span *ngIf="column.type === 'date'">{{row[column.name] | date:'mediumDate'}}</span>
                 </td>
                 <td class="text-right">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                    <fa-icon [icon]="faPencilAlt" (click)="showEditModal(row)"></fa-icon>
                     <fa-icon [icon]="faTimes"></fa-icon>
                 </td>
             </tr>
