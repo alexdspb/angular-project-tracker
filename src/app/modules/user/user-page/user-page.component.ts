@@ -1,7 +1,7 @@
 import {Component, OnInit, SecurityContext} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 import {Employee} from '../../../models/Employee';
 import {Skill} from '../../../models/Skill';
@@ -19,7 +19,7 @@ import {UserModalComponent} from '@modules/user/user-modal/user-modal.component'
 export class UserPageComponent implements OnInit {
     currentUser: Employee;
     user: Employee;
-    skypeLink: string;
+    skypeLink: SafeUrl;
     skills: Skill[];
 
     constructor(
@@ -39,6 +39,7 @@ export class UserPageComponent implements OnInit {
 
                 // sanitize, then bypass link
                 this.skypeLink = this.sanitizer.sanitize(SecurityContext.URL, this.user.Skype);
+                this.skypeLink = this.sanitizer.bypassSecurityTrustUrl(`skype:${this.skypeLink}`);
 
                 this.currentUser = this.authService.currentUser;
                 this.apiService.getEmployeeSkills(id).subscribe(skills => this.skills = skills);
