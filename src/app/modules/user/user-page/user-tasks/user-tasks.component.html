@@ -1,0 +1,7 @@
+<tr *ngFor="let task of tasks" class="task-row">
+    <td><a href="/tasks/{{task.Id}}">{{task.Name}}</a></td>
+    <td>{{task.Description}}</td>
+</tr>
+<tr *ngIf="!tasks.length" class="task-row">
+    <td colspan="2">No tasks found.</td>
+</tr>

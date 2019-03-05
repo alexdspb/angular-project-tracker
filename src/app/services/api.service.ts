@@ -232,6 +232,15 @@ export class ApiService {
             .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
     }
 
+    // Get Projects by Employee
+    getProjectsByEmployeeId(id: number): Observable<Project[]> {
+        const url = `${this.apiUrl}/api/projects/search`;
+        const params = new HttpParams().set('model.employeeId', `${id}`);
+        const httpOptions = {...this.httpOptions, params};
+        return this.http.get<Project[]>(url, httpOptions)
+            .pipe(tap(response => this.logRequest(`GET ${url}`, response)));
+    }
+
     // Get Tasks by Project
     getTasksByProjectId(id: number): Observable<Task[]> {
         const url = `${this.apiUrl}/api/projects/${id}/tickets`;

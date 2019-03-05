@@ -10,6 +10,7 @@ import {AuthService} from '../auth.service';
 import {SkillModalComponent} from '../skill-modal/skill-modal.component';
 import {EmployeeSkill} from '../../../models/EmployeeSkill';
 import {UserModalComponent} from '@modules/user/user-modal/user-modal.component';
+import {Project} from '@models/Project';
 
 // Font Awesome
 import {faPlus, faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +25,7 @@ export class UserPageComponent implements OnInit {
     user: Employee;
     skypeLink: SafeUrl;
     skills: Skill[];
+    projects: Project[];
 
     // Font Awesome
     faPlus = faPlus;
@@ -51,6 +53,12 @@ export class UserPageComponent implements OnInit {
 
                 this.currentUser = this.authService.currentUser;
                 this.apiService.getEmployeeSkills(id).subscribe(skills => this.skills = skills);
+
+                // get projects
+                this.apiService.getProjectsByEmployeeId(this.user.Id).subscribe(projects => {
+                    this.projects = projects;
+                });
+
             });
         }
     }

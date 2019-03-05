@@ -9,6 +9,7 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { SkillModalComponent } from './skill-modal/skill-modal.component';
 import { UserModalComponent } from './user-modal/user-modal.component';
+import { UserTasksComponent } from './user-page/user-tasks/user-tasks.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { UserModalComponent } from './user-modal/user-modal.component';
         LoginModalComponent,
         UserPageComponent,
         SkillModalComponent,
-        UserModalComponent
+        UserModalComponent,
+        UserTasksComponent,
     ],
     imports: [
         CommonModule,

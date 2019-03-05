@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div id="user-skills" class="col-sm-4">
+    <div id="user-skills" class="col-sm-5">
         <table *ngIf="skills">
             <tbody>
                 <tr *ngFor="let skill of skills">
@@ -56,4 +56,22 @@
             </button>
         </div>
     </div>
+</div>
+
+<div id="user-projects-wrapper" class="row" *ngIf="projects">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Projects</th>
+        </tr>
+        </thead>
+        <tbody class="thead-light">
+            <ng-container *ngFor="let project of projects">
+                <tr class="project-row">
+                    <th scope="col" colspan="2">{{project.Name}}</th>
+                </tr>
+                <app-user-tasks [project]="project" [user]="user"></app-user-tasks>
+            </ng-container>
+        </tbody>
+    </table>
 </div>
