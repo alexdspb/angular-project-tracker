@@ -1,3 +1,35 @@
-<p>
-    admin-section-page works!
-</p>
+<div id="admin-section-wrapper">
+    <div id="admin-actions">
+        <div class="form-group">
+            <input id="edit-text" class="form-control form-control-sm" type="text" placeholder="Filter"
+                   [formControl]="filterControl" (keyup)="onFilterKeyUp()">
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-sm btn-primary">{{section.addButton.text}}</button>
+        </div>
+    </div>
+    <div id="admin-table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col" *ngFor="let column of section.columns">{{column.title}}</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of dataset">
+                <td *ngFor="let column of section.columns">
+                    <span *ngIf="column.type === 'number'">{{row[column.name]}}</span>
+                    <span *ngIf="column.type === 'string'">{{row[column.name]}}</span>
+                    <span *ngIf="column.type === 'link'"><a href="{{column.link}}/{{row['Id']}}">{{row[column.name]}}</a></span>
+                    <span *ngIf="column.type === 'date'">{{row[column.name] | date:'mediumDate'}}</span>
+                </td>
+                <td class="text-right">
+                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                    <fa-icon [icon]="faTimes"></fa-icon>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
