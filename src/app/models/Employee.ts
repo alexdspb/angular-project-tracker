@@ -1,5 +1,6 @@
 import {Position} from './Position';
 import {Location} from './Location';
+import {Role} from '@models/Role';
 
 export class Employee {
     Id: number;
@@ -17,4 +18,5 @@ export class Employee {
     LocationId: number;
     Location: Location;
     FullName: string;
+    Roles: Role[];
 }
