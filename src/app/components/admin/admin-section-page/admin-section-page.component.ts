@@ -22,6 +22,7 @@ export class AdminSectionPageComponent implements OnInit {
     section: AdminSection;
     filterControl = new FormControl('');
     dataset: any[];
+    hiddenRowIds: number[] = [];
 
     sections: AdminSection[] = [
         {
@@ -130,7 +131,26 @@ export class AdminSectionPageComponent implements OnInit {
 
 
     onFilterKeyUp = () => {
-        console.log(this.filterControl.value);
+        const filter = this.filterControl.value;
+
+        this.hiddenRowIds = [];
+
+        if (!filter) {
+            return;
+        }
+
+        for (let row of this.dataset) {
+            let match = false;
+            for (let key of this.section.columns) {
+                const value = (typeof row[key.name] === 'string') ? row[key.name] : `${row[key.name]}`;
+                if (value.search(new RegExp(filter, 'i')) !== -1) {
+                    match = true;
+                }
+            }
+            if (!match) {
+                this.hiddenRowIds.push(row.Id);
+            }
+        }
     }
 
 }

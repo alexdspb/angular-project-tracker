@@ -17,24 +17,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let row of dataset">
-                <td *ngFor="let column of section.columns">
-                    <span *ngIf="column.type === 'number'">{{row[column.name]}}</span>
-                    <span *ngIf="column.type === 'string'">{{row[column.name]}}</span>
-                    <span *ngIf="column.type === 'link'"><a href="{{column.link}}/{{row['Id']}}">{{row[column.name]}}</a></span>
-                    <span *ngIf="column.type === 'date'">{{row[column.name] | date:'mediumDate'}}</span>
-                </td>
-                <td class="text-right">
-                    <fa-icon [icon]="faPencilAlt" (click)="showEditModal(row)"></fa-icon>
+            <ng-container *ngFor="let row of dataset">
+                <tr *ngIf="hiddenRowIds.indexOf(row.Id) === -1">
+                    <td *ngFor="let column of section.columns">
+                        <span *ngIf="column.type === 'number'">{{row[column.name]}}</span>
+                        <span *ngIf="column.type === 'string'">{{row[column.name]}}</span>
+                        <span *ngIf="column.type === 'link'"><a href="{{column.link}}/{{row['Id']}}">{{row[column.name]}}</a></span>
+                        <span *ngIf="column.type === 'date'">{{row[column.name] | date:'mediumDate'}}</span>
+                    </td>
+                    <td class="text-right">
+                        <fa-icon [icon]="faPencilAlt" (click)="showEditModal(row)"></fa-icon>
 
-                    <ng-template #popTitle>Delete this row?</ng-template>
-                    <ng-template #popContent>
-                        <button class="btn btn-sm btn-success" style="margin-right: 3em;">No</button>
-                        <button class="btn btn-sm btn-danger" (click)="deleteRow(row)">Delete</button>
-                    </ng-template>
-                    <fa-icon [icon]="faTimes" placement="left" [ngbPopover]="popContent" [popoverTitle]="popTitle" title="Delete this row!"></fa-icon>
-                </td>
-            </tr>
+                        <ng-template #popTitle>Delete this row?</ng-template>
+                        <ng-template #popContent>
+                            <button class="btn btn-sm btn-success" style="margin-right: 3em;">No</button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row)">Delete</button>
+                        </ng-template>
+                        <fa-icon [icon]="faTimes" placement="left" [ngbPopover]="popContent" [popoverTitle]="popTitle" title="Delete this row!"></fa-icon>
+                    </td>
+                </tr>
+            </ng-container>
             </tbody>
         </table>
     </div>
