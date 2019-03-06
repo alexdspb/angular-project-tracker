@@ -10,6 +10,8 @@ import {ProjectModalComponent} from '@components/project/project-modal/project-m
 
 // Font Awesome
 import {faPencilAlt, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {Employee} from '@models/Employee';
+import {Project} from '@models/Project';
 
 @Component({
     selector: 'app-admin-section-page',
@@ -40,6 +42,7 @@ export class AdminSectionPageComponent implements OnInit {
             modalComponent: UserModalComponent,
             modalComponentProp: 'user',
             deleteMethod: this.apiService.deleteEmployee,
+            newRow: new Employee(),
         },
         {
             name: 'projects',
@@ -59,6 +62,7 @@ export class AdminSectionPageComponent implements OnInit {
             modalComponent: ProjectModalComponent,
             modalComponentProp: 'project',
             deleteMethod: this.apiService.deleteProject,
+            newRow: new Project(),
         },
     ];
 
@@ -98,17 +102,29 @@ export class AdminSectionPageComponent implements OnInit {
         modalRef.componentInstance[this.section.modalComponentProp] = row;
         // deal with result
         modalRef.result.then(result => {
-            // update result in UI
-            this.dataset = this.dataset.map((item, index, origin) => {
-                return (item.Id === result.Id) ? result : item;
-            });
+            if (!result) {
+                return;
+            }
+            if (!row.Id) {
+                // add new row
+                this.dataset.push(result);
+                return;
+            } else {
+                // update result in UI
+                this.dataset = this.dataset.map((item, index, origin) => {
+                    return (item.Id === result.Id) ? result : item;
+                });
+            }
         }, () => {});
     }
 
     deleteRow(row) {
         this.section.deleteMethod.call(this.apiService, row).subscribe(result => {
+            if (!result) {
+                return;
+            }
             // delete result from UI
-            this.dataset = this.dataset.filter(item => item.Id === result.Id);
+            this.dataset = this.dataset.filter(item => item.Id !== result);
         });
     };
 

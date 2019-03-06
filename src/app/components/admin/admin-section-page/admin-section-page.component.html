@@ -5,7 +5,7 @@
                    [formControl]="filterControl" (keyup)="onFilterKeyUp()">
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-sm btn-primary">{{section.addButton.text}}</button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="showEditModal(section.newRow)">{{section.addButton.text}}</button>
         </div>
     </div>
     <div id="admin-table">

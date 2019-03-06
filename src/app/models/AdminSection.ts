@@ -21,4 +21,5 @@ export class AdminSection {
     columns: AdminSectionDatasetColumn[];
     modalComponent;
     modalComponentProp;
+    newRow: object;
 }
