@@ -17,6 +17,7 @@ export class AdminSection {
     link: string;
     addButton: AdminSectionButton;
     subscriber: Observable<any[]>;
+    deleteMethod;
     columns: AdminSectionDatasetColumn[];
     modalComponent;
     modalComponentProp;

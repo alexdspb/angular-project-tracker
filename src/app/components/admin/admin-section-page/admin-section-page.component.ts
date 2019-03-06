@@ -39,6 +39,7 @@ export class AdminSectionPageComponent implements OnInit {
             ],
             modalComponent: UserModalComponent,
             modalComponentProp: 'user',
+            deleteMethod: this.apiService.deleteEmployee,
         },
         {
             name: 'projects',
@@ -57,6 +58,7 @@ export class AdminSectionPageComponent implements OnInit {
             ],
             modalComponent: ProjectModalComponent,
             modalComponentProp: 'project',
+            deleteMethod: this.apiService.deleteProject,
         },
     ];
 
@@ -102,6 +104,14 @@ export class AdminSectionPageComponent implements OnInit {
             });
         }, () => {});
     }
+
+    deleteRow(row) {
+        this.section.deleteMethod.call(this.apiService, row).subscribe(result => {
+            // delete result from UI
+            this.dataset = this.dataset.filter(item => item.Id === result.Id);
+        });
+    };
+
 
     onFilterKeyUp = () => {
         console.log(this.filterControl.value);

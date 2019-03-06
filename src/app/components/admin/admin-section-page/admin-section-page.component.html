@@ -26,7 +26,13 @@
                 </td>
                 <td class="text-right">
                     <fa-icon [icon]="faPencilAlt" (click)="showEditModal(row)"></fa-icon>
-                    <fa-icon [icon]="faTimes"></fa-icon>
+
+                    <ng-template #popTitle>Delete this row?</ng-template>
+                    <ng-template #popContent>
+                        <button class="btn btn-sm btn-success" style="margin-right: 3em;">No</button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteRow(row)">Delete</button>
+                    </ng-template>
+                    <fa-icon [icon]="faTimes" placement="left" [ngbPopover]="popContent" [popoverTitle]="popTitle" title="Delete this row!"></fa-icon>
                 </td>
             </tr>
             </tbody>
