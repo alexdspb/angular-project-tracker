@@ -39,7 +39,13 @@ export class UserModalComponent implements OnInit {
             Phone: [this.user.Phone, Validators.required],
             LocationId: [this.user.LocationId, [Validators.required, Validators.min(1)]],
             PositionId: [this.user.PositionId, [Validators.required, Validators.min(1)]],
+            Roles: this.buildRolesControls(),
         });
+    }
+
+    buildRolesControls() {
+        const arr = this.apiService.roles.map(() => this.formBuilder.control(false));
+        return this.formBuilder.array(arr);
     }
 
     // convenience getter for easy access to form fields
@@ -66,6 +72,11 @@ export class UserModalComponent implements OnInit {
             Phone: form.Phone.trim(),
             LocationId: +form.LocationId,
             PositionId: +form.PositionId,
+            Roles: form.Roles.map((item, i) => {
+                if (item === true) {
+                    return {Id: this.apiService.roles[i].Id, Name: this.apiService.roles[i].Name};
+                }
+            }).filter(item => item !== undefined),
         };
 
         this.loading = true;

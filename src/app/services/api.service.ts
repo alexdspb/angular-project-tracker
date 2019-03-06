@@ -14,6 +14,7 @@ import {EmployeeProject} from '../models/EmployeeProject';
 import {Skill} from '../models/Skill';
 import {SkillLevel} from '../models/SkillLevel';
 import {EmployeeSkill} from '../models/EmployeeSkill';
+import {Role} from '@models/Role';
 
 @Injectable({
     providedIn: 'root'
@@ -78,6 +79,12 @@ export class ApiService {
         {Id: 4, Name: 'Senior'},
     ];
 
+    roles: Role[] = [
+        {Id: 1, Name: 'Admin'},
+        {Id: 2, Name: 'Employee'},
+        {Id: 3, Name: 'Project manager'},
+    ];
+
     constructor(private http: HttpClient) {
     }
 
@@ -100,6 +107,13 @@ export class ApiService {
             return null;
         }
         return this.locations.filter(location => location.Id === id).shift();
+    }
+
+    role(id: number) {
+        if (!id) {
+            return null;
+        }
+        return this.roles.filter(role => role.Id === id).shift();
     }
 
     /* Employees */

@@ -33,7 +33,7 @@
 
             <div class="form-group">
                 <label for="edit-birthday" class="col-sm-2 col-form-label">Birthday: &nbsp;</label>
-                <div class="col-sm-4">
+                <div class="col-sm-10">
                     <input id="edit-birthday" class="form-control form-control-sm" placeholder="Birthday"
                            [ngClass]="{ 'is-invalid': submitted && f.Birthday.errors }"
                            formControlName="Birthday" ngbDatepicker #birthdayPicker="ngbDatepicker"
@@ -66,6 +66,37 @@
                         <div *ngIf="f.LocationId.errors.required">Location is required</div>
                     </div>
                 </div>
+
+                <label for="select-position" class="col-sm-2 col-form-label">Position: &nbsp;</label>
+                <div class="col-sm-4">
+                    <select id="select-position" class="form-control form-control-sm"
+                            formControlName="PositionId" [ngClass]="{ 'is-invalid': submitted && f.PositionId.errors }">
+                        <option value="{{position.Id}}" *ngFor="let position of apiService.positions">{{position.Name}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.PositionId.errors" class="invalid-feedback">
+                        <div *ngIf="f.PositionId.errors.required">Position is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-skype" class="col-sm-2 col-form-label">Skype: &nbsp;</label>
+                <div class="col-sm-4">
+                    <input id="edit-skype" class="form-control form-control-sm" type="text" placeholder="Skype"
+                           formControlName="Skype" [ngClass]="{ 'is-invalid': submitted && f.Skype.errors }">
+                    <div *ngIf="submitted && f.Skype.errors" class="invalid-feedback">
+                        <div *ngIf="f.Skype.errors.required">Skype is required</div>
+                    </div>
+                </div>
+
+                <label for="edit-phone" class="col-sm-2 col-form-label">Phone: &nbsp;</label>
+                <div class="col-sm-4">
+                    <input id="edit-phone" class="form-control form-control-sm" type="text" placeholder="Phone"
+                           formControlName="Phone" [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                    <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                        <div *ngIf="f.Phone.errors.required">Phone is required</div>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -80,36 +111,16 @@
             </div>
 
             <div class="form-group">
-                <label for="edit-skype" class="col-sm-2 col-form-label">Skype: &nbsp;</label>
+                <label class="col-sm-2 col-form-label">Roles: &nbsp;</label>
                 <div class="col-sm-10">
-                    <input id="edit-skype" class="form-control form-control-sm" type="text" placeholder="Skype"
-                           formControlName="Skype" [ngClass]="{ 'is-invalid': submitted && f.Skype.errors }">
-                    <div *ngIf="submitted && f.Skype.errors" class="invalid-feedback">
-                        <div *ngIf="f.Skype.errors.required">Skype is required</div>
+                    <div class="form-check form-check-inline" *ngFor="let roleControl of f.Roles.controls; let i = index">
+                        <input class="form-check-input" type="checkbox" id="role-checkbox-{{apiService.roles[i].Id}}"
+                               [formControl]="roleControl" [ngClass]="{ 'is-invalid': submitted && f.Roles.errors }" [checked]="false"
+                        >
+                        <label class="form-check-label" for="role-checkbox-{{apiService.roles[i].Id}}">{{apiService.roles[i].Name}}</label>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="edit-phone" class="col-sm-2 col-form-label">Phone: &nbsp;</label>
-                <div class="col-sm-10">
-                    <input id="edit-phone" class="form-control form-control-sm" type="text" placeholder="Phone"
-                           formControlName="Phone" [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
-                    <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
-                        <div *ngIf="f.Phone.errors.required">Phone is required</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="select-position" class="col-sm-2 col-form-label">Position: &nbsp;</label>
-                <div class="col-sm-4">
-                    <select id="select-position" class="form-control form-control-sm"
-                            formControlName="PositionId" [ngClass]="{ 'is-invalid': submitted && f.PositionId.errors }">
-                        <option value="{{position.Id}}" *ngFor="let position of apiService.positions">{{position.Name}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.PositionId.errors" class="invalid-feedback">
-                        <div *ngIf="f.PositionId.errors.required">Position is required</div>
+                    <div *ngIf="submitted && f.Roles.errors" class="invalid-feedback">
+                        <div *ngIf="f.Roles.errors.required">Roles is required</div>
                     </div>
                 </div>
             </div>
