@@ -20,7 +20,7 @@ export class ProjectModalComponent implements OnInit {
         Name: new FormControl('', [Validators.required]),
         CustomerName: new FormControl('', [Validators.required]),
         StartDate: new FormControl('', [Validators.required]),
-        EndDate: new FormControl(''),
+        EndDate: new FormControl('', [Validators.required]),
         Description: new FormControl('', [Validators.required]),
     });
     loading = false;
