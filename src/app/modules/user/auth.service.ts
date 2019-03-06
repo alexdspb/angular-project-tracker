@@ -29,6 +29,8 @@ export class AuthService {
             .pipe(tap(user => {
                 // login successful
                 if (user) {
+                    // do not store password
+                    delete user.Password;
                     // store user details in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);

@@ -4,7 +4,7 @@
       <a class="nav-link" (click)="showLoginModal()">Login</a>
     </li>
       <li class="nav-item" *ngIf="authService.currentUser !== null">
-          <span style="display: block; padding: .5rem 1rem;">Hello, {{authService.currentUser.First}}!</span>
+        <span style="display: block; padding: .5rem 1rem;">Hello, <a href="/users/{{authService.currentUser.Id}}">{{authService.currentUser.First}}</a>!</span>
       </li>
     <li class="nav-item" *ngIf="authService.currentUser !== null">
       <a class="nav-link" (click)="authService.logout()">Logout</a>
