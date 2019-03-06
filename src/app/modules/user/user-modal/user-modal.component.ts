@@ -38,6 +38,7 @@ export class UserModalComponent implements OnInit {
             Skype: [this.user.Skype, Validators.required],
             Phone: [this.user.Phone, Validators.required],
             LocationId: [this.user.LocationId, [Validators.required, Validators.min(1)]],
+            PositionId: [this.user.PositionId, [Validators.required, Validators.min(1)]],
         });
     }
 
@@ -64,6 +65,7 @@ export class UserModalComponent implements OnInit {
             Skype: form.Skype.trim(),
             Phone: form.Phone.trim(),
             LocationId: +form.LocationId,
+            PositionId: +form.PositionId,
         };
 
         this.loading = true;
